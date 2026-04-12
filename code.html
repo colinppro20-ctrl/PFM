@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>THE CURATOR | Architectural Collective</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400&amp;family=Inter:wght@300;400;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "tertiary-container": "#909096",
+                    "inverse-on-surface": "#30312f",
+                    "on-primary-container": "#352143",
+                    "surface-variant": "#343534",
+                    "on-tertiary-container": "#282a2e",
+                    "secondary-fixed-dim": "#e9bac9",
+                    "on-primary-fixed": "#261334",
+                    "surface-container-high": "#292a29",
+                    "surface-tint": "#d8bde8",
+                    "on-background": "#e3e2e0",
+                    "on-secondary": "#462733",
+                    "on-secondary-fixed-variant": "#5f3d49",
+                    "on-secondary-fixed": "#2e131e",
+                    "tertiary-fixed-dim": "#c6c6cc",
+                    "tertiary": "#c6c6cc",
+                    "surface-container": "#1f201f",
+                    "surface-container-low": "#1b1c1b",
+                    "surface-dim": "#121413",
+                    "background": "#121413",
+                    "error": "#ffb4ab",
+                    "surface-container-highest": "#343534",
+                    "on-tertiary": "#2f3035",
+                    "surface": "#121413",
+                    "outline": "#968e97",
+                    "outline-variant": "#4b454d",
+                    "on-surface-variant": "#cdc4cd",
+                    "error-container": "#93000a",
+                    "secondary-container": "#5f3d49",
+                    "on-secondary-container": "#d6a9b8",
+                    "inverse-surface": "#e3e2e0",
+                    "on-tertiary-fixed": "#1a1b20",
+                    "inverse-primary": "#6c567b",
+                    "on-tertiary-fixed-variant": "#45474c",
+                    "tertiary-fixed": "#e2e2e8",
+                    "on-surface": "#e3e2e0",
+                    "on-primary": "#3c284a",
+                    "surface-bright": "#393938",
+                    "on-error-container": "#ffdad6",
+                    "primary-container": "#a188b0",
+                    "on-error": "#690005",
+                    "primary": "#d8bde8",
+                    "secondary": "#e9bac9",
+                    "surface-container-lowest": "#0d0e0e",
+                    "primary-fixed": "#f3daff",
+                    "primary-fixed-dim": "#d8bde8",
+                    "on-primary-fixed-variant": "#543e62",
+                    "secondary-fixed": "#ffd9e4"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "fontFamily": {
+                    "headline": ["Noto Serif"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            background-color: #121413;
+            color: #cdc4cd;
+            font-family: 'Inter', sans-serif;
+        }
+        .hero-gradient {
+            background: linear-gradient(to bottom, rgba(18,20,19,0.4) 0%, rgba(18,20,19,1) 100%);
+        }
+    </style>
+</head>
+<body class="antialiased">
+<!-- TopNavBar Shell -->
+<nav class="fixed top-0 w-full z-50 bg-[#121413]/60 backdrop-blur-xl transition-colors duration-500 no-line tonal-transition">
+<div class="flex justify-between items-center px-12 py-8 w-full max-w-[1920px] mx-auto">
+<div class="font-serif italic text-2xl text-[#d8bde8] tracking-widest uppercase">THE CURATOR</div>
+<div class="hidden md:flex items-center space-x-12">
+<a class="font-sans uppercase tracking-[0.2em] text-xs transition-colors duration-500 text-[#cdc4cd] hover:text-[#d8bde8] scale-100 active:scale-95 transition-transform" href="#">Properties</a>
+<a class="font-sans uppercase tracking-[0.2em] text-xs transition-colors duration-500 text-[#cdc4cd] hover:text-[#d8bde8] scale-100 active:scale-95 transition-transform" href="#">Experience</a>
+<a class="font-sans uppercase tracking-[0.2em] text-xs transition-colors duration-500 text-[#cdc4cd] hover:text-[#d8bde8] scale-100 active:scale-95 transition-transform" href="#">Contact</a>
+</div>
+<button class="bg-primary px-8 py-3 font-sans uppercase tracking-[0.2em] text-[10px] text-on-primary scale-100 active:scale-95 transition-transform hover:opacity-90">
+                Private Tour
+            </button>
+</div>
+</nav>
+<main>
+<!-- 1. Hero: Full screen immersive image -->
+<section class="relative h-screen w-full flex items-center justify-center overflow-hidden">
+<div class="absolute inset-0 z-0">
+<img alt="Luxury Villa Night View" class="w-full h-full object-cover" data-alt="ultra-modern glass villa in the desert at night with warm interior lighting and a purple-tinted dusk sky" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDD2EozPvfnwFuXSqbWwWX40UYTsHdxfjvleX9IX-nAV0guLQ3QxJqgYm03ERiFA5sunt5evCOrlziCtqxoNlm9bPoOwkblnCbJWOLqQK7OPvrWLKYyvKOAkdACOxUkdF1XIDmT8CBh10_ow8LdGgyd9VO5Y6onOhmXkPtaiK1v-OtLvCznHvglaI7CTETwzIv5u9NCANZUjZLVfkhlh2u_WNsvNher8HL14mh5uBjIKzgQMj-0ZbOZ8kUQmfDaEwV2-ZoTLITgU8o"/>
+<div class="absolute inset-0 hero-gradient"></div>
+</div>
+<div class="relative z-10 text-center px-6 max-w-4xl">
+<h1 class="font-headline text-6xl md:text-8xl text-on-background tracking-tighter mb-6 leading-none">
+                    The Art of Living.
+                </h1>
+<p class="font-body text-lg md:text-xl text-on-surface-variant tracking-wide font-light max-w-xl mx-auto opacity-80">
+                    Curated architectural masterpieces for the discerning few.
+                </p>
+</div>
+<div class="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 opacity-50">
+<span class="font-sans uppercase tracking-[0.3em] text-[10px]">Scroll to Explore</span>
+<span class="material-symbols-outlined animate-bounce">expand_more</span>
+</div>
+</section>
+<!-- 2. Featured Villa: Narrative & Immersive -->
+<section class="py-32 px-12 bg-background overflow-hidden">
+<div class="max-w-[1920px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-20 items-center">
+<div class="lg:col-span-7 relative group">
+<div class="overflow-hidden">
+<img alt="Featured Architectural Design" class="w-full h-[819px] object-cover grayscale hover:grayscale-0 transition-all duration-1000 ease-in-out scale-105 hover:scale-100" data-alt="monolithic concrete architecture with clean lines and large glass spans set against a brooding stormy sky" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDP4J6DVLINrs2w_oAp8Oo7pTzHwodT3mSClLWvEGm8H1JlbBCzMSEORBPhOIgfmXqJjKMYmKutZVru0ZbjDtJOfL61uebBN23c5V1ZhDWCgw54hQHoxGqtRVJZqBOqg4x4yoow4f8A0PYWBys4SDqJ7w64wmfFeib-VgO8b7VSLerIVWA-HKpRaIwxAOKHjb95wU8tRQL4RvGezfwhlke8JKqr9X9ACcrXB1RYopiUC25EadssIVGqhSZDT8yOmwYeYsygcWvnYdc"/>
+</div>
+<div class="absolute bottom-12 left-[-2rem] bg-surface-container-high/90 backdrop-blur-md p-10 max-w-md hidden md:block">
+<span class="font-sans uppercase tracking-[0.3em] text-[10px] text-primary block mb-4">Current Feature</span>
+<h3 class="font-headline text-3xl text-on-surface mb-2 italic">The Monolith Pavilion</h3>
+<p class="text-sm font-light text-on-surface-variant leading-relaxed">A study in spatial silence and structural integrity.</p>
+</div>
+</div>
+<div class="lg:col-span-5 space-y-12 pr-12">
+<h2 class="font-headline text-5xl md:text-6xl text-on-surface leading-tight tracking-tighter">
+                        Architectural Soul <br/> &amp; Craftsmanship.
+                    </h2>
+<p class="font-body text-lg text-on-surface-variant leading-relaxed font-light">
+                        We don't just find homes; we curate environments that challenge the boundaries of design. Each property in our portfolio is a testament to the belief that space dictates the rhythm of our existence. 
+                    </p>
+<p class="font-body text-lg text-on-surface-variant leading-relaxed font-light">
+                        From the sweeping cantilevers of coastal retreats to the intimate textures of urban sanctuaries, we seek the extraordinary.
+                    </p>
+<div class="pt-8">
+<a class="group inline-flex items-center gap-4 text-primary font-sans uppercase tracking-[0.2em] text-xs" href="#">
+                            Our Philosophy 
+                            <span class="w-12 h-px bg-primary/30 group-hover:w-20 transition-all duration-500"></span>
+</a>
+</div>
+</div>
+</div>
+</section>
+<!-- 3. The Collection: 3-column gallery -->
+<section class="py-32 bg-surface-container-lowest">
+<div class="max-w-[1920px] mx-auto px-12">
+<div class="flex justify-between items-end mb-20 border-b border-outline-variant/10 pb-8">
+<div>
+<span class="font-sans uppercase tracking-[0.3em] text-[10px] text-primary block mb-4">Portfolio</span>
+<h2 class="font-headline text-5xl text-on-surface tracking-tighter">The Collection</h2>
+</div>
+<a class="font-sans uppercase tracking-[0.2em] text-xs text-on-surface-variant hover:text-primary transition-colors" href="#">View All Works</a>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-24">
+<!-- Villa Obsidian -->
+<div class="group cursor-pointer">
+<div class="aspect-[4/5] overflow-hidden bg-surface-container mb-8 relative">
+<img alt="Villa Obsidian" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" data-alt="black charcoal modern house with floor to ceiling windows at night overlooking a dark reflecting pool" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAn524-DJx-Y_ENxYJQz0nGDJvochF35fhjH4dzJWKIPB5uHpC3NGJDiAXXVTYdZKrK1n5zF8x3_AQ3AcGyJEJxOZjGUFPd0Qt928gjtUr1_I6Iy0iHLYIxUE3T2DFYiZ1ehq9ApKUvaN61I_9DptweGwSEhWA1XjpMDOLeA0BXizw6B_wXkyF0vf-9HpJfwmCTAgN1dyT70uxzNgzBUay6tR7xiCDB2vXdlFPPTbgrQukMPt-MWdhyY5xx6CZIaq_R3GsGdPOHIxs"/>
+<div class="absolute inset-0 bg-background/20 group-hover:bg-background/0 transition-all duration-700"></div>
+</div>
+<div class="flex justify-between items-start">
+<div>
+<h4 class="font-headline text-2xl text-on-surface group-hover:text-primary transition-colors">Villa Obsidian</h4>
+<p class="font-sans uppercase tracking-[0.1em] text-[10px] text-on-surface-variant mt-2">Reykjavik, Iceland</p>
+</div>
+<a class="text-xs uppercase tracking-widest text-primary border-b border-primary/20 pb-1 hover:border-primary transition-all" href="#">Details</a>
+</div>
+</div>
+<!-- The Glass House -->
+<div class="group cursor-pointer lg:mt-24">
+<div class="aspect-[4/5] overflow-hidden bg-surface-container mb-8 relative">
+<img alt="The Glass House" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" data-alt="transparent glass forest cabin surrounded by dense autumnal pine trees with soft interior golden lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDHiD_ZTGT9mD90vrAXLmpSdf1ia2WtMcF0VCj02a--Fizi9fZl3KxJgawT0oYkqsFu_VLoEhRZm3eERp9B4K5k95vMicZO4hNdjKfcRTq6kotdKLc1hFOGp2RmQRsmG3-_RsbnpKMp2GAKvb7EpyH4C_8Lkw5CsfFm0X_xnyigXmWs9MnbuBnhrCMAxi7uIiVd6oJ5dn2T_e987egGaSeErdoivsh9Y0utzL3fd7QG4tX9HyBUENIrqn9nDOmOAh26fvsPvh80yOs"/>
+<div class="absolute inset-0 bg-background/20 group-hover:bg-background/0 transition-all duration-700"></div>
+</div>
+<div class="flex justify-between items-start">
+<div>
+<h4 class="font-headline text-2xl text-on-surface group-hover:text-primary transition-colors">The Glass House</h4>
+<p class="font-sans uppercase tracking-[0.1em] text-[10px] text-on-surface-variant mt-2">Dorset, United Kingdom</p>
+</div>
+<a class="text-xs uppercase tracking-widest text-primary border-b border-primary/20 pb-1 hover:border-primary transition-all" href="#">Details</a>
+</div>
+</div>
+<!-- The Zenith Deck -->
+<div class="group cursor-pointer">
+<div class="aspect-[4/5] overflow-hidden bg-surface-container mb-8 relative">
+<img alt="The Zenith Deck" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" data-alt="luxury hilltop estate with a massive infinity pool reflecting the starry night sky and city lights in the distance" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAvHGcq_RmivhQcFSMjRKarzn0LUSaKB6w_FRAlpdwR9jdbLWUGQhNgcj464rMg8NVduhHLN4bLuJ60RjUKxdb8MLqZL-KUbxKzaWpchqleU7SERgZ66tWMQ4z06cQ3wRUljR-UA72bQHSNp87SZzVSZ27MCCjFUNkb_egtTgYywrlAvznL8vKR6Rg6WR3f0xDNPcfKmNiTZ07lniNrEZfqV4emOjnF7snOUnCDxTSlwVMKCo-mmrsKGZ5tmUJC7Dkt7eWGun0CrSA"/>
+<div class="absolute inset-0 bg-background/20 group-hover:bg-background/0 transition-all duration-700"></div>
+</div>
+<div class="flex justify-between items-start">
+<div>
+<h4 class="font-headline text-2xl text-on-surface group-hover:text-primary transition-colors">The Zenith Deck</h4>
+<p class="font-sans uppercase tracking-[0.1em] text-[10px] text-on-surface-variant mt-2">Malibu, California</p>
+</div>
+<a class="text-xs uppercase tracking-widest text-primary border-b border-primary/20 pb-1 hover:border-primary transition-all" href="#">Details</a>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- 4. Private Consultation: Contact CTA -->
+<section class="relative py-48 bg-background flex flex-col items-center justify-center overflow-hidden">
+<!-- Background Texture -->
+<div class="absolute inset-0 opacity-10 pointer-events-none">
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary rounded-full blur-[160px]"></div>
+</div>
+<div class="relative z-10 text-center max-w-2xl px-6">
+<h2 class="font-headline text-5xl md:text-7xl text-on-surface tracking-tighter mb-8 leading-tight italic">
+                    A Silent Dialogue.
+                </h2>
+<p class="font-body text-lg text-on-surface-variant font-light mb-12 opacity-80">
+                    Acquiring an architectural landmark is an intimate journey. Connect with our principal curators for a private dossier and guided walkthrough.
+                </p>
+<form class="flex flex-col md:flex-row gap-4 w-full">
+<input class="flex-grow bg-transparent border-b border-outline-variant/30 py-4 px-2 font-sans uppercase text-[10px] tracking-[0.2em] focus:outline-none focus:border-primary transition-colors text-on-surface placeholder:text-outline-variant" placeholder="YOUR EMAIL ADDRESS" type="email"/>
+<button class="bg-primary text-on-primary font-sans uppercase tracking-[0.2em] text-xs px-12 py-4 hover:opacity-90 transition-opacity" type="submit">
+                        Request Private Tour
+                    </button>
+</form>
+</div>
+</section>
+</main>
+<!-- Footer Shell -->
+<footer class="w-full py-20 px-12 bg-[#0d0e0e]">
+<div class="flex flex-col md:flex-row justify-between items-center w-full max-w-[1920px] mx-auto gap-8">
+<div class="font-serif text-xl text-[#d8bde8] uppercase">THE CURATOR</div>
+<div class="text-[#cdc4cd]/50 font-sans text-[10px] uppercase tracking-[0.15em] leading-relaxed text-center">
+                © 2024 THE CURATOR ARCHITECTURAL COLLECTIVE. ALL RIGHTS RESERVED.
+            </div>
+<div class="flex gap-12">
+<a class="text-[#cdc4cd]/50 hover:text-[#d8bde8] font-sans text-[10px] uppercase tracking-[0.15em] transition-opacity" href="#">Legal</a>
+<a class="text-[#cdc4cd]/50 hover:text-[#d8bde8] font-sans text-[10px] uppercase tracking-[0.15em] transition-opacity" href="#">Privacy</a>
+<a class="text-[#cdc4cd]/50 hover:text-[#d8bde8] font-sans text-[10px] uppercase tracking-[0.15em] transition-opacity" href="#">Press</a>
+</div>
+</div>
+</footer>
+</body></html>
