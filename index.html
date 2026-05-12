@@ -1,1009 +1,290 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>PRAY FOR ME | Architectural Collective</title>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&display=swap"
-        rel="stylesheet" />
-    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
-    <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <title>PRAY FOR ME — SS25</title>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700&display=swap" rel="stylesheet" />
     <style>
-        *,
-        *::before,
-        *::after {
+        *, *::before, *::after {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        ::-webkit-scrollbar {
-            width: 0;
-            display: none;
-        }
-
-        html {
-            scrollbar-width: none;
-        }
-
-        body {
-            background: #0a0a0a;
-            color: #f5f0e8;
-            font-family: 'Cormorant Garamond', serif;
-            cursor: none;
-            overflow-x: hidden;
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background: #000000;
+            color: #ffffff;
+            font-family: 'Barlow Condensed', sans-serif;
             -webkit-font-smoothing: antialiased;
         }
 
-        a,
-        button {
-            cursor: none;
+        a {
+            color: inherit;
+            text-decoration: none;
         }
 
-        /* ---- Custom cursor ---- */
-        .cursor-dot,
-        .cursor-ring {
-            position: fixed;
-            top: 0;
-            left: 0;
-            pointer-events: none;
-            transform: translate(-50%, -50%);
-            mix-blend-mode: difference;
-        }
-
-        .cursor-dot {
-            width: 6px;
-            height: 6px;
-            background: #f5f0e8;
-            border-radius: 50%;
-            z-index: 10000;
-        }
-
-        .cursor-ring {
-            width: 42px;
-            height: 42px;
-            border: 1px solid rgba(245, 240, 232, 0.35);
-            border-radius: 50%;
-            z-index: 9999;
-        }
-
-        /* ---- Logo watermark ---- */
-        .logo-watermark {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background-image: url('logo.png');
-            background-position: center center;
-            background-repeat: no-repeat;
-            background-size: 65%;
-            background-attachment: fixed;
-            opacity: 0.35;
-            mix-blend-mode: soft-light;
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        /* ---- Gothic title letter-spacing ---- */
-        .product-name,
-        .final-title,
-        .final-card-name {
-            letter-spacing: 0.15em;
-        }
-
-        /* ---- Scroll runway ---- */
-        .runway {
-            height: 130vh;
-            width: 100%;
-        }
-
-        /* ---- WebGL canvas ---- */
-        #webgl {
+        #glitch-canvas {
             position: fixed;
             inset: 0;
             width: 100%;
             height: 100%;
-            z-index: 12;
+            z-index: 0;
             pointer-events: none;
         }
 
-        /* char split for text reveal */
-        .char {
-            display: inline-block;
-            transform: translateY(110%);
-            will-change: transform;
-        }
-
-        .char-wrap {
-            display: inline-block;
-            overflow: hidden;
-            vertical-align: bottom;
-        }
-
-        /* ---- Stage: everything fixed ---- */
-        .stage {
+        .flash {
             position: fixed;
             inset: 0;
-            overflow: hidden;
-            z-index: 2;
+            background: #ffffff;
+            opacity: 0;
+            z-index: 1;
+            pointer-events: none;
+            mix-blend-mode: difference;
         }
 
-        /* ---- Brand wordmark ---- */
-        .brand {
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            padding: 20px;
+            z-index: 10;
+        }
+
+        .logo {
+            width: 120px;
+            height: auto;
+            display: block;
+            filter: brightness(0) invert(1);
+        }
+
+        .center {
             position: fixed;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            font-size: clamp(2rem, 5vw, 4.5rem);
-            font-weight: 300;
-            letter-spacing: 0.5em;
+            z-index: 5;
+        }
+
+        .shop {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-weight: 700;
             text-transform: uppercase;
-            white-space: nowrap;
-            z-index: 50;
-            will-change: transform, font-size, letter-spacing;
-        }
-
-
-        /* ---- Products horizontal section ---- */
-        .products-pin {
-            position: relative;
-            height: 100vh;
-            width: 100%;
-            overflow: hidden;
-            z-index: 2;
-        }
-
-        .products-track {
-            display: flex;
-            width: 300vw;
-            height: 100vh;
-            will-change: transform;
-        }
-
-        .product {
-            width: 100vw;
-            height: 100vh;
-            flex-shrink: 0;
-            display: flex;
-            align-items: stretch;
-        }
-
-        .product-canvas-wrap {
-            width: 60%;
-            height: 100%;
-            position: relative;
-        }
-
-        .product-canvas-wrap canvas {
-            width: 100% !important;
-            height: 100% !important;
-            display: block;
-        }
-
-        .product-info {
-            width: 40%;
-            padding: 10vh 6vw 10vh 3vw;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            gap: 1.6rem;
-        }
-
-        .product-index {
-            font-size: 0.6rem;
-            font-weight: 400;
-            letter-spacing: 0.4em;
-            text-transform: uppercase;
-            color: rgba(245, 240, 232, 0.4);
-        }
-
-        .product-name {
-            font-size: clamp(2.4rem, 4.5vw, 4.2rem);
-            font-weight: 300;
-            font-style: italic;
-            letter-spacing: -0.01em;
+            font-size: 4vw;
             line-height: 1;
-        }
-
-        .product-desc {
-            font-size: 1.1rem;
-            font-weight: 300;
-            line-height: 1.5;
-            color: rgba(245, 240, 232, 0.75);
-            max-width: 34ch;
-        }
-
-        .product-price {
-            font-size: 1.3rem;
-            font-weight: 400;
-            letter-spacing: 0.05em;
-        }
-
-        .product-section-label {
-            font-size: 0.6rem;
-            font-weight: 400;
-            letter-spacing: 0.35em;
-            text-transform: uppercase;
-            color: rgba(245, 240, 232, 0.35);
-            margin-bottom: 0.7rem;
-            display: block;
-        }
-
-        .swatches {
-            display: flex;
-            gap: 0.8rem;
-        }
-
-        .swatch {
-            width: 26px;
-            height: 26px;
-            border-radius: 50%;
-            border: 1px solid rgba(245, 240, 232, 0.25);
-            background: var(--c);
-            padding: 0;
-            position: relative;
-            transition: transform 0.3s ease;
-        }
-
-        .swatch::after {
-            content: '';
-            position: absolute;
-            inset: -5px;
-            border: 1px solid transparent;
-            border-radius: 50%;
-            transition: border-color 0.3s ease;
-        }
-
-        .swatch.active::after {
-            border-color: rgba(245, 240, 232, 0.7);
-        }
-
-        .swatch:hover {
-            transform: scale(1.08);
-        }
-
-        .sizes {
-            display: flex;
-            gap: 1.4rem;
-        }
-
-        .size-btn {
-            background: transparent;
+            letter-spacing: 0.02em;
+            color: #ffffff;
+            background: none;
             border: none;
-            color: rgba(245, 240, 232, 0.45);
-            font-family: inherit;
-            font-size: 0.75rem;
-            font-weight: 400;
-            letter-spacing: 0.25em;
-            text-transform: uppercase;
-            padding: 0.3rem 0;
+            display: inline-block;
+            cursor: pointer;
             position: relative;
-            transition: color 0.3s ease;
+            transition: text-decoration-thickness 0.1s ease;
         }
 
-        .size-btn::after {
-            content: '';
-            position: absolute;
-            left: 0;
-            bottom: 0;
-            width: 100%;
-            height: 1px;
-            background: #f5f0e8;
-            transform: scaleX(0);
-            transform-origin: left;
-            transition: transform 0.35s cubic-bezier(0.7, 0, 0.3, 1);
+        .shop:hover {
+            text-decoration: line-through;
+            text-decoration-thickness: 3px;
+            text-decoration-skip-ink: none;
+            animation: color-flicker 0.18s steps(2) infinite;
         }
 
-        .size-btn.active,
-        .size-btn:hover {
-            color: #f5f0e8;
+        @keyframes color-flicker {
+            0% { color: #ffffff; }
+            50% { color: #ff0000; }
+            100% { color: #ffffff; }
         }
 
-        .size-btn.active::after,
-        .size-btn:hover::after {
-            transform: scaleX(1);
-        }
-
-        .add-cart {
-            align-self: flex-start;
-            position: relative;
-            isolation: isolate;
-            border: 1px solid rgba(245, 240, 232, 0.5);
-            background: transparent;
-            color: #f5f0e8;
-            font-family: inherit;
-            font-size: 0.72rem;
-            font-weight: 400;
-            letter-spacing: 0.35em;
-            text-transform: uppercase;
-            padding: 1.2rem 3rem;
-            margin-top: 0.6rem;
-            overflow: hidden;
-            transition: color 0.45s ease;
-        }
-
-        .add-cart::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: #f5f0e8;
-            transform: scaleX(0);
-            transform-origin: left;
-            transition: transform 0.55s cubic-bezier(0.77, 0, 0.18, 1);
-            z-index: -1;
-        }
-
-        .add-cart:hover {
-            color: #0a0a0a;
-        }
-
-        .add-cart:hover::before {
-            transform: scaleX(1);
-        }
-
-        /* ---- Product nav dots ---- */
-        .product-dots {
-            position: absolute;
-            bottom: 4vh;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 1.2rem;
-            z-index: 5;
-        }
-
-        .product-dots button {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            border: 1px solid rgba(245, 240, 232, 0.5);
-            background: transparent;
-            padding: 0;
-            transition: background 0.35s ease, transform 0.35s ease;
-        }
-
-        .product-dots button.active {
-            background: #f5f0e8;
-            transform: scale(1.25);
-        }
-
-        .product-hint {
-            position: absolute;
-            top: 5vh;
-            right: 5vw;
-            font-size: 0.58rem;
-            letter-spacing: 0.35em;
-            text-transform: uppercase;
-            color: rgba(245, 240, 232, 0.35);
-            z-index: 5;
-        }
-
-        /* ---- Final collection section ---- */
-        .final-section {
-            position: relative;
-            min-height: 110vh;
-            padding: 18vh 6vw 12vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 7vh;
-            z-index: 2;
-        }
-
-        .final-title {
-            font-size: clamp(2.5rem, 6vw, 5.5rem);
-            font-weight: 300;
-            letter-spacing: 0.25em;
-            text-transform: uppercase;
-            text-align: center;
-        }
-
-        .final-cards {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: clamp(1.2rem, 2.5vw, 2.6rem);
-            width: 100%;
-            max-width: 1280px;
-        }
-
-        .final-card {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        .final-card-img {
-            width: 100%;
-            aspect-ratio: 3/4;
-            overflow: hidden;
-            background: #141414;
-        }
-
-        .final-card-img img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            filter: grayscale(0.15);
-            transition: transform 1.2s cubic-bezier(0.7, 0, 0.3, 1), filter 0.8s ease;
-        }
-
-        .final-card:hover .final-card-img img {
-            transform: scale(1.04);
-            filter: grayscale(0);
-        }
-
-        .final-card-name {
-            font-size: 1.35rem;
-            font-weight: 400;
-            font-style: italic;
-        }
-
-        .final-card-price {
-            font-size: 0.85rem;
-            letter-spacing: 0.08em;
-            color: rgba(245, 240, 232, 0.6);
-        }
-
-        .shop-void {
-            margin-top: 4vh;
-            position: relative;
-            isolation: isolate;
-            border: 1px solid rgba(245, 240, 232, 0.5);
-            background: transparent;
-            color: #f5f0e8;
-            font-family: inherit;
-            font-size: 0.78rem;
-            font-weight: 400;
-            letter-spacing: 0.4em;
-            text-transform: uppercase;
-            padding: 1.4rem 4rem;
-            overflow: hidden;
-            transition: color 0.45s ease;
-        }
-
-        .shop-void::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: #f5f0e8;
-            transform: scaleX(0);
-            transform-origin: left;
-            transition: transform 0.6s cubic-bezier(0.77, 0, 0.18, 1);
-            z-index: -1;
-        }
-
-        .shop-void:hover {
-            color: #0a0a0a;
-        }
-
-        .shop-void:hover::before {
-            transform: scaleX(1);
-        }
-
-        /* ---- Scroll hint ---- */
-        .scroll-hint {
+        footer {
             position: fixed;
-            bottom: 5vh;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 0.6rem;
-            font-weight: 400;
-            letter-spacing: 0.4em;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            font-size: 10px;
             text-transform: uppercase;
-            color: rgba(245, 240, 232, 0.4);
-            z-index: 100;
+            letter-spacing: 0.15em;
+            font-weight: 700;
+            color: #ffffff;
+            z-index: 10;
         }
     </style>
 </head>
-
 <body>
+    <canvas id="glitch-canvas"></canvas>
+    <div class="flash" id="flash"></div>
 
-    <div class="logo-watermark" aria-hidden="true"></div>
+    <header>
+        <a href="/" aria-label="Pray For Me">
+            <img src="logo-pfm-v2.svg" alt="PRAY FOR ME" class="logo" />
+        </a>
+    </header>
 
-    <div class="cursor-dot"></div>
-    <div class="cursor-ring"></div>
-
-    <!-- Scroll runway -->
-    <div class="runway"></div>
-
-    <canvas id="webgl"></canvas>
-
-    <div class="stage">
-        <div class="brand" id="brand">PRAY FOR ME</div>
+    <div class="center">
+        <a href="collection.html" class="shop">Shop</a>
     </div>
 
-    <div class="scroll-hint" id="scroll-hint">Scroll</div>
-
-    <!-- ================= PRODUCTS HORIZONTAL ================= -->
-    <section class="products-pin" id="products-pin">
-        <div class="products-track" id="products-track">
-
-            <article class="product" data-product="tee">
-                <div class="product-canvas-wrap"><canvas id="canvas-tee"></canvas></div>
-                <div class="product-info">
-                    <span class="product-index">Collection No. 01 / Pray For Me</span>
-                    <h2 class="product-name">PFM-01 TEE</h2>
-                    <p class="product-desc">Oversized silhouette. Heavyweight cotton. Unisex.</p>
-                    <div class="product-price">€ 180</div>
-                    <div>
-                        <span class="product-section-label">Colour</span>
-                        <div class="swatches" data-target="tee">
-                            <button class="swatch active" style="--c:#1a1a1a" data-color="#1a1a1a"></button>
-                            <button class="swatch" style="--c:#f5f0e8" data-color="#f5f0e8"></button>
-                            <button class="swatch" style="--c:#2d2d2d" data-color="#2d2d2d"></button>
-                            <button class="swatch" style="--c:#8b7355" data-color="#8b7355"></button>
-                        </div>
-                    </div>
-                    <div>
-                        <span class="product-section-label">Size</span>
-                        <div class="sizes">
-                            <button class="size-btn">XS</button>
-                            <button class="size-btn">S</button>
-                            <button class="size-btn active">M</button>
-                            <button class="size-btn">L</button>
-                            <button class="size-btn">XL</button>
-                        </div>
-                    </div>
-                    <button class="add-cart"><span>Add to Cart</span></button>
-                </div>
-            </article>
-
-            <article class="product" data-product="hoodie">
-                <div class="product-canvas-wrap"><canvas id="canvas-hoodie"></canvas></div>
-                <div class="product-info">
-                    <span class="product-index">Collection No. 02 / Pray For Me</span>
-                    <h2 class="product-name">PFM-02 HOODIE</h2>
-                    <p class="product-desc">Double-lined hood. Kangaroo pocket. Drop shoulder.</p>
-                    <div class="product-price">€ 320</div>
-                    <div>
-                        <span class="product-section-label">Colour</span>
-                        <div class="swatches" data-target="hoodie">
-                            <button class="swatch active" style="--c:#2d2d2d" data-color="#2d2d2d"></button>
-                            <button class="swatch" style="--c:#1a1a1a" data-color="#1a1a1a"></button>
-                            <button class="swatch" style="--c:#f5f0e8" data-color="#f5f0e8"></button>
-                            <button class="swatch" style="--c:#8b7355" data-color="#8b7355"></button>
-                        </div>
-                    </div>
-                    <div>
-                        <span class="product-section-label">Size</span>
-                        <div class="sizes">
-                            <button class="size-btn">XS</button>
-                            <button class="size-btn">S</button>
-                            <button class="size-btn active">M</button>
-                            <button class="size-btn">L</button>
-                            <button class="size-btn">XL</button>
-                        </div>
-                    </div>
-                    <button class="add-cart"><span>Add to Cart</span></button>
-                </div>
-            </article>
-
-            <article class="product" data-product="jacket">
-                <div class="product-canvas-wrap"><canvas id="canvas-jacket"></canvas></div>
-                <div class="product-info">
-                    <span class="product-index">Collection No. 03 / Pray For Me</span>
-                    <h2 class="product-name">PFM-03 JACKET</h2>
-                    <p class="product-desc">Technical shell. Oversized fit. Sealed seams.</p>
-                    <div class="product-price">€ 650</div>
-                    <div>
-                        <span class="product-section-label">Colour</span>
-                        <div class="swatches" data-target="jacket">
-                            <button class="swatch active" style="--c:#1c1c1c" data-color="#1c1c1c"></button>
-                            <button class="swatch" style="--c:#f5f0e8" data-color="#f5f0e8"></button>
-                            <button class="swatch" style="--c:#2d2d2d" data-color="#2d2d2d"></button>
-                            <button class="swatch" style="--c:#8b7355" data-color="#8b7355"></button>
-                        </div>
-                    </div>
-                    <div>
-                        <span class="product-section-label">Size</span>
-                        <div class="sizes">
-                            <button class="size-btn">XS</button>
-                            <button class="size-btn">S</button>
-                            <button class="size-btn active">M</button>
-                            <button class="size-btn">L</button>
-                            <button class="size-btn">XL</button>
-                        </div>
-                    </div>
-                    <button class="add-cart"><span>Add to Cart</span></button>
-                </div>
-            </article>
-
-        </div>
-        <div class="product-hint">← → to navigate</div>
-        <div class="product-dots" id="product-dots">
-            <button class="active" data-i="0"></button>
-            <button data-i="1"></button>
-            <button data-i="2"></button>
-        </div>
-    </section>
-
-    <!-- ================= FINAL COLLECTION ================= -->
-    <section class="final-section">
-        <h2 class="final-title">The Collection</h2>
-        <div class="final-cards">
-            <div class="final-card">
-                <div class="final-card-img"><img
-                        src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=900&q=85" alt="" /></div>
-                <div class="final-card-name">PFM-01 Tee</div>
-                <div class="final-card-price">€ 180</div>
-            </div>
-            <div class="final-card">
-                <div class="final-card-img"><img
-                        src="https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=900&q=85" alt="" /></div>
-                <div class="final-card-name">PFM-02 Hoodie</div>
-                <div class="final-card-price">€ 320</div>
-            </div>
-            <div class="final-card">
-                <div class="final-card-img"><img
-                        src="https://images.unsplash.com/photo-1551537482-f2075a1d41f2?w=900&q=85" alt="" /></div>
-                <div class="final-card-name">PFM-03 Jacket</div>
-                <div class="final-card-price">€ 650</div>
-            </div>
-        </div>
-        <button class="shop-void"><span>Shop Pray For Me</span></button>
-    </section>
+    <footer>
+        <span>© Pray For Me SS25</span>
+        <span>Paris</span>
+    </footer>
 
     <script>
-        /* ===== LENIS ===== */
-        const lenis = new Lenis({
-            duration: 1.6,
-            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-            smoothWheel: true,
-        });
-        lenis.on('scroll', ScrollTrigger.update);
-        gsap.ticker.add((time) => lenis.raf(time * 1000));
-        gsap.ticker.lagSmoothing(0);
+        const canvas = document.getElementById('glitch-canvas');
+        const ctx = canvas.getContext('2d');
+        const flash = document.getElementById('flash');
 
-        gsap.registerPlugin(ScrollTrigger);
+        let width, height, dpr;
 
-        /* ===== CURSOR ===== */
-        const dot = document.querySelector('.cursor-dot');
-        const ring = document.querySelector('.cursor-ring');
-        let mx = 0, my = 0, dx = 0, dy = 0, rx = 0, ry = 0;
-        document.addEventListener('mousemove', (e) => { mx = e.clientX; my = e.clientY; });
-        (function loop() {
-            dx += (mx - dx) * 0.2;
-            dy += (my - dy) * 0.2;
-            rx += (mx - rx) * 0.08;
-            ry += (my - ry) * 0.08;
-            dot.style.left = dx + 'px'; dot.style.top = dy + 'px';
-            ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
-            requestAnimationFrame(loop);
-        })();
+        function resize() {
+            dpr = Math.min(window.devicePixelRatio || 1, 2);
+            width = window.innerWidth;
+            height = window.innerHeight;
+            canvas.width = width * dpr;
+            canvas.height = height * dpr;
+            canvas.style.width = width + 'px';
+            canvas.style.height = height + 'px';
+            ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        }
+        resize();
+        window.addEventListener('resize', resize);
 
-        /* ===== ONE MASTER TIMELINE ===== */
-        const ease = 'power2.inOut';
+        function rand(a, b) { return a + Math.random() * (b - a); }
+        function randInt(a, b) { return Math.floor(rand(a, b)); }
 
-        const tl = gsap.timeline({
-            defaults: { ease },
-            scrollTrigger: {
-                trigger: '.runway',
-                start: 'top top',
-                end: 'bottom bottom',
-                scrub: 2,
-            }
-        });
-
-        /* progress 0.00 → 0.15 : brand moves to top-left, villa fades in */
-        tl.to('#brand', {
-            top: '3.5vh',
-            left: '5vw',
-            xPercent: 0,
-            yPercent: 0,
-            fontSize: '0.75rem',
-            letterSpacing: '0.4em',
-        }, 0.00);
-
-        tl.to('#scroll-hint', { opacity: 0, duration: 0.1 }, 0.00);
-        tl.to('#brand', { opacity: 0 }, 0.90);
-
-        /* ===== THREE.JS LAYER ===== */
-        (function webgl() {
-            const canvas = document.getElementById('webgl');
-            const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
-            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-            renderer.setSize(window.innerWidth, window.innerHeight);
-
-            const scene = new THREE.Scene();
-            const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 100);
-            camera.position.z = 5;
-
-            /* ---- Particle field ---- */
-            const PARTICLE_COUNT = 1400;
-            const positions = new Float32Array(PARTICLE_COUNT * 3);
-            const seeds = new Float32Array(PARTICLE_COUNT);
-            for (let i = 0; i < PARTICLE_COUNT; i++) {
-                positions[i * 3] = (Math.random() - 0.5) * 18;
-                positions[i * 3 + 1] = (Math.random() - 0.5) * 12;
-                positions[i * 3 + 2] = (Math.random() - 0.5) * 10 - 2;
-                seeds[i] = Math.random() * Math.PI * 2;
-            }
-            const pGeo = new THREE.BufferGeometry();
-            pGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-            pGeo.setAttribute('aSeed', new THREE.BufferAttribute(seeds, 1));
-
-            const pMat = new THREE.ShaderMaterial({
-                transparent: true,
-                depthWrite: false,
-                blending: THREE.AdditiveBlending,
-                uniforms: {
-                    uTime: { value: 0 },
-                    uScroll: { value: 0 },
-                    uColor: { value: new THREE.Color(0xf5f0e8) },
-                    uPixelRatio: { value: Math.min(window.devicePixelRatio, 2) },
-                },
-                vertexShader: `
-            attribute float aSeed;
-            uniform float uTime;
-            uniform float uScroll;
-            uniform float uPixelRatio;
-            varying float vAlpha;
-            void main() {
-                vec3 p = position;
-                p.y += sin(uTime * 0.2 + aSeed) * 0.25;
-                p.x += cos(uTime * 0.15 + aSeed * 1.3) * 0.2;
-                p.y -= uScroll * 2.0 * (0.5 + fract(aSeed));
-                vec4 mv = modelViewMatrix * vec4(p, 1.0);
-                gl_Position = projectionMatrix * mv;
-                gl_PointSize = (1.6 + fract(aSeed) * 2.2) * uPixelRatio * (8.0 / -mv.z);
-                vAlpha = 0.3 * (0.4 + fract(aSeed) * 0.6);
-            }
-        `,
-                fragmentShader: `
-            uniform vec3 uColor;
-            varying float vAlpha;
-            void main() {
-                vec2 c = gl_PointCoord - 0.5;
-                float d = length(c);
-                if (d > 0.5) discard;
-                float a = smoothstep(0.5, 0.0, d) * vAlpha;
-                gl_FragColor = vec4(uColor, a);
-            }
-        `,
+        const NUM_BLOCKS = 18;
+        const blocks = [];
+        for (let i = 0; i < NUM_BLOCKS; i++) {
+            blocks.push({
+                x: rand(0, 1),
+                y: rand(0, 1),
+                w: rand(0.04, 0.32),
+                h: rand(0.01, 0.12),
+                seed: Math.random() * 1000,
+                phase: Math.random()
             });
-            const points = new THREE.Points(pGeo, pMat);
-            scene.add(points);
-
-            /* ---- Mouse + scroll ---- */
-            const mouse = { x: 0.5, y: 0.5, tx: 0.5, ty: 0.5 };
-            window.addEventListener('mousemove', (e) => {
-                mouse.tx = e.clientX / window.innerWidth;
-                mouse.ty = 1 - e.clientY / window.innerHeight;
-            });
-            let scrollY = 0;
-            lenis.on('scroll', (e) => { scrollY = e.scroll / Math.max(1, e.limit); });
-
-            const clock = new THREE.Clock();
-            function render() {
-                const t = clock.getElapsedTime();
-                mouse.x += (mouse.tx - mouse.x) * 0.06;
-                mouse.y += (mouse.ty - mouse.y) * 0.06;
-
-                pMat.uniforms.uTime.value = t;
-                pMat.uniforms.uScroll.value = scrollY;
-
-                points.rotation.y = scrollY * 0.4;
-                points.rotation.x = mouse.y * 0.05;
-
-                renderer.render(scene, camera);
-                requestAnimationFrame(render);
-            }
-            render();
-
-            window.addEventListener('resize', () => {
-                renderer.setSize(window.innerWidth, window.innerHeight);
-                camera.aspect = window.innerWidth / window.innerHeight;
-                camera.updateProjectionMatrix();
-            });
-        })();
-
-        /* fade hero stage + webgl when entering products */
-        ScrollTrigger.create({
-            trigger: '#products-pin',
-            start: 'top bottom',
-            end: 'top top',
-            scrub: true,
-            onUpdate: (self) => {
-                const v = 1 - self.progress;
-                gsap.set(['.stage', '#webgl'], { opacity: v });
-            }
-        });
-
-        /* ===== PRODUCT 3D SCENES ===== */
-        function buildProductScene(canvas, type, defaultColor) {
-            const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
-            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-
-            const scene = new THREE.Scene();
-            const camera = new THREE.PerspectiveCamera(35, 1, 0.1, 100);
-            camera.position.set(0, 0, 4);
-
-            scene.add(new THREE.AmbientLight(0xffffff, 0.45));
-            const key = new THREE.DirectionalLight(0xffffff, 1.1);
-            key.position.set(3, 4, 3);
-            scene.add(key);
-            const fill = new THREE.DirectionalLight(0xf5f0e8, 0.25);
-            fill.position.set(-3, 1, 2);
-            scene.add(fill);
-
-            const pivot = new THREE.Group();
-            const spinner = new THREE.Group();
-            pivot.add(spinner);
-            scene.add(pivot);
-
-            const mat = new THREE.MeshStandardMaterial({
-                color: new THREE.Color(defaultColor),
-                roughness: 0.72,
-                metalness: 0.06,
-            });
-
-            if (type === 'tee') {
-                const body = new THREE.Mesh(new THREE.BoxGeometry(0.8, 1.0, 0.1), mat);
-                spinner.add(body);
-                const sl = new THREE.Mesh(new THREE.BoxGeometry(0.35, 0.3, 0.09), mat);
-                sl.position.set(-0.55, 0.35, 0); sl.rotation.z = 0.3;
-                spinner.add(sl);
-                const sr = new THREE.Mesh(new THREE.BoxGeometry(0.35, 0.3, 0.09), mat);
-                sr.position.set(0.55, 0.35, 0); sr.rotation.z = -0.3;
-                spinner.add(sr);
-            } else if (type === 'hoodie') {
-                const body = new THREE.Mesh(new THREE.BoxGeometry(0.9, 1.1, 0.12), mat);
-                spinner.add(body);
-                const hood = new THREE.Mesh(
-                    new THREE.SphereGeometry(0.42, 32, 16, 0, Math.PI * 2, 0, Math.PI / 2),
-                    mat
-                );
-                hood.position.set(0, 0.55, 0);
-                spinner.add(hood);
-                const pocket = new THREE.Mesh(new THREE.BoxGeometry(0.58, 0.26, 0.04), mat);
-                pocket.position.set(0, -0.18, 0.075);
-                spinner.add(pocket);
-                const sl = new THREE.Mesh(new THREE.BoxGeometry(0.38, 0.32, 0.11), mat);
-                sl.position.set(-0.6, 0.4, 0); sl.rotation.z = 0.3;
-                spinner.add(sl);
-                const sr = new THREE.Mesh(new THREE.BoxGeometry(0.38, 0.32, 0.11), mat);
-                sr.position.set(0.6, 0.4, 0); sr.rotation.z = -0.3;
-                spinner.add(sr);
-            } else if (type === 'jacket') {
-                const body = new THREE.Mesh(new THREE.BoxGeometry(1.0, 1.1, 0.15), mat);
-                spinner.add(body);
-                const collar = new THREE.Mesh(new THREE.BoxGeometry(0.62, 0.1, 0.18), mat);
-                collar.position.set(0, 0.56, 0);
-                spinner.add(collar);
-                const lineMat = new THREE.MeshStandardMaterial({ color: 0x060606, roughness: 0.9 });
-                const line = new THREE.Mesh(new THREE.BoxGeometry(0.012, 1.05, 0.02), lineMat);
-                line.position.set(0, 0, 0.082);
-                spinner.add(line);
-                const sl = new THREE.Mesh(new THREE.BoxGeometry(0.42, 0.34, 0.14), mat);
-                sl.position.set(-0.68, 0.4, 0); sl.rotation.z = 0.28;
-                spinner.add(sl);
-                const sr = new THREE.Mesh(new THREE.BoxGeometry(0.42, 0.34, 0.14), mat);
-                sr.position.set(0.68, 0.4, 0); sr.rotation.z = -0.28;
-                spinner.add(sr);
-            }
-
-            const mouse = { tx: 0, ty: 0, x: 0, y: 0 };
-            canvas.addEventListener('mousemove', (e) => {
-                const r = canvas.getBoundingClientRect();
-                mouse.tx = ((e.clientX - r.left) / r.width - 0.5) * 2;
-                mouse.ty = ((e.clientY - r.top) / r.height - 0.5) * 2;
-            });
-            canvas.addEventListener('mouseleave', () => { mouse.tx = 0; mouse.ty = 0; });
-
-            function resize() {
-                const w = canvas.clientWidth, h = canvas.clientHeight;
-                if (!w || !h) return;
-                renderer.setSize(w, h, false);
-                camera.aspect = w / h;
-                camera.updateProjectionMatrix();
-            }
-            resize();
-            window.addEventListener('resize', resize);
-
-            function tick() {
-                mouse.x += (mouse.tx - mouse.x) * 0.08;
-                mouse.y += (mouse.ty - mouse.y) * 0.08;
-                spinner.rotation.y += 0.006;
-                pivot.rotation.x = mouse.y * 0.35;
-                pivot.rotation.y = mouse.x * 0.4;
-                renderer.render(scene, camera);
-                requestAnimationFrame(tick);
-            }
-            tick();
-
-            return { mat };
         }
 
-        const productScenes = {
-            tee: buildProductScene(document.getElementById('canvas-tee'), 'tee', '#1a1a1a'),
-            hoodie: buildProductScene(document.getElementById('canvas-hoodie'), 'hoodie', '#2d2d2d'),
-            jacket: buildProductScene(document.getElementById('canvas-jacket'), 'jacket', '#1c1c1c'),
-        };
+        let frameCount = 0;
+        let lastFlashTime = 0;
+        let scanLines = [];
 
-        /* color swatches */
-        document.querySelectorAll('.swatches').forEach(group => {
-            const target = group.dataset.target;
-            group.querySelectorAll('.swatch').forEach(sw => {
-                sw.addEventListener('click', () => {
-                    group.querySelectorAll('.swatch').forEach(s => s.classList.remove('active'));
-                    sw.classList.add('active');
-                    productScenes[target].mat.color.set(sw.dataset.color);
-                });
+        function spawnScanLine() {
+            scanLines.push({
+                y: rand(-50, height),
+                speed: rand(8, 28) * (Math.random() < 0.5 ? 1 : -1),
+                thickness: rand(1, 4),
+                life: 0,
+                maxLife: randInt(8, 30),
+                color: Math.random() < 0.85 ? '#ffffff' : '#ff0000'
             });
-        });
-
-        /* size buttons */
-        document.querySelectorAll('.sizes').forEach(group => {
-            group.querySelectorAll('.size-btn').forEach(btn => {
-                btn.addEventListener('click', () => {
-                    group.querySelectorAll('.size-btn').forEach(b => b.classList.remove('active'));
-                    btn.classList.add('active');
-                });
-            });
-        });
-
-        /* ===== HORIZONTAL PRODUCT SCROLL ===== */
-        const productsPin = document.getElementById('products-pin');
-        const track = document.getElementById('products-track');
-
-        const horizontalST = ScrollTrigger.create({
-            trigger: productsPin,
-            start: 'top top',
-            end: () => '+=' + (window.innerWidth * 2),
-            pin: true,
-            scrub: 1,
-            snap: { snapTo: [0, 0.5, 1], duration: 0.6, ease: 'power3.inOut' },
-            invalidateOnRefresh: true,
-            animation: gsap.to(track, { x: () => -(window.innerWidth * 2), ease: 'none' }),
-        });
-
-        /* dots + keyboard + swipe nav */
-        const dots = [...document.querySelectorAll('#product-dots button')];
-        let currentProduct = 0;
-
-        function goToProduct(i) {
-            i = Math.max(0, Math.min(2, i));
-            currentProduct = i;
-            const y = horizontalST.start + (horizontalST.end - horizontalST.start) * (i / 2);
-            lenis.scrollTo(y, { duration: 1.2, easing: (t) => 1 - Math.pow(1 - t, 3) });
         }
 
-        horizontalST.animation.eventCallback('onUpdate', () => {
-            const p = horizontalST.progress;
-            const idx = Math.round(p * 2);
-            if (idx !== currentProduct) {
-                currentProduct = idx;
-                dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+        function drawBlocks(offsetX, offsetY, color, alpha) {
+            ctx.globalAlpha = alpha;
+            ctx.fillStyle = color;
+            for (let i = 0; i < blocks.length; i++) {
+                const b = blocks[i];
+                // Flicker: only draw if phase says so
+                const flicker = Math.sin((frameCount + b.seed) * 0.4 + b.phase * 6.28);
+                if (flicker < -0.2) continue;
+
+                // Random shift
+                const jitterX = (Math.random() - 0.5) * 30 * (Math.random() < 0.3 ? 1 : 0);
+                const jitterY = (Math.random() - 0.5) * 8 * (Math.random() < 0.3 ? 1 : 0);
+
+                // Reposition randomly every few frames
+                if (frameCount % randInt(4, 14) === 0 && Math.random() < 0.3) {
+                    b.x = rand(0, 1);
+                    b.y = rand(0, 1);
+                    b.w = rand(0.04, 0.32);
+                    b.h = rand(0.01, 0.12);
+                }
+
+                const x = b.x * width + offsetX + jitterX;
+                const y = b.y * height + offsetY + jitterY;
+                const w = b.w * width;
+                const h = b.h * height;
+                ctx.fillRect(x, y, w, h);
             }
-        });
+            ctx.globalAlpha = 1;
+        }
 
-        dots.forEach(d => d.addEventListener('click', () => goToProduct(+d.dataset.i)));
+        function frame() {
+            frameCount++;
 
-        window.addEventListener('keydown', (e) => {
-            if (horizontalST.progress <= 0 || horizontalST.progress >= 1) {
-                if (horizontalST.progress === 0 && e.key !== 'ArrowRight') return;
-                if (horizontalST.progress === 1 && e.key !== 'ArrowLeft') return;
+            // Background
+            ctx.fillStyle = '#000000';
+            ctx.fillRect(0, 0, width, height);
+
+            // RGB split layers
+            const splitAmount = 6 + Math.sin(frameCount * 0.07) * 4;
+
+            // Red channel
+            ctx.globalCompositeOperation = 'screen';
+            drawBlocks(splitAmount, 0, '#ff0000', 0.85);
+            // Green channel
+            drawBlocks(0, 0, '#00ff00', 0.6);
+            // Blue channel
+            drawBlocks(-splitAmount, 0, '#0000ff', 0.85);
+            ctx.globalCompositeOperation = 'source-over';
+
+            // White overlay (the "real" shapes, mostly white/black to feel monochrome)
+            drawBlocks(0, 0, '#ffffff', 0.35);
+
+            // Scan lines
+            if (Math.random() < 0.18) spawnScanLine();
+            for (let i = scanLines.length - 1; i >= 0; i--) {
+                const s = scanLines[i];
+                s.y += s.speed;
+                s.life++;
+                ctx.globalAlpha = 0.6;
+                ctx.fillStyle = s.color;
+                ctx.fillRect(0, s.y, width, s.thickness);
+                ctx.globalAlpha = 1;
+                if (s.life > s.maxLife || s.y < -10 || s.y > height + 10) {
+                    scanLines.splice(i, 1);
+                }
             }
-            if (e.key === 'ArrowRight') { e.preventDefault(); goToProduct(currentProduct + 1); }
-            if (e.key === 'ArrowLeft') { e.preventDefault(); goToProduct(currentProduct - 1); }
-        });
 
-        /* swipe */
-        let touchStartX = 0;
-        productsPin.addEventListener('touchstart', (e) => { touchStartX = e.touches[0].clientX; }, { passive: true });
-        productsPin.addEventListener('touchend', (e) => {
-            const dx = e.changedTouches[0].clientX - touchStartX;
-            if (Math.abs(dx) > 60) goToProduct(currentProduct + (dx < 0 ? 1 : -1));
-        }, { passive: true });
+            // Static noise dots
+            const noiseCount = 60;
+            ctx.globalAlpha = 0.12;
+            ctx.fillStyle = '#ffffff';
+            for (let i = 0; i < noiseCount; i++) {
+                ctx.fillRect(Math.random() * width, Math.random() * height, 2, 2);
+            }
+            ctx.globalAlpha = 1;
 
-        /* ===== Resize ===== */
-        window.addEventListener('resize', () => ScrollTrigger.refresh());
+            // Occasional thin red glitch slice
+            if (Math.random() < 0.04) {
+                ctx.fillStyle = '#ff0000';
+                ctx.globalAlpha = 0.7;
+                const sliceY = rand(0, height);
+                const sliceH = rand(2, 8);
+                const sliceX = rand(0, width * 0.5);
+                const sliceW = rand(width * 0.2, width * 0.6);
+                ctx.fillRect(sliceX, sliceY, sliceW, sliceH);
+                ctx.globalAlpha = 1;
+            }
+
+            // Full-screen white flash (very brief, rare)
+            const now = performance.now();
+            if (now - lastFlashTime > 1800 && Math.random() < 0.012) {
+                lastFlashTime = now;
+                flash.style.opacity = '1';
+                setTimeout(() => { flash.style.opacity = '0'; }, 50);
+            }
+
+            requestAnimationFrame(frame);
+        }
+        frame();
     </script>
 </body>
-
 </html>

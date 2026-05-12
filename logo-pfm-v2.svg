@@ -1,0 +1,125 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" width="800" height="400">
+  <defs>
+    <!-- Heavy wobbly filter — like pencil on rough paper -->
+    <filter id="wobbly" x="-8%" y="-8%" width="116%" height="116%">
+      <feTurbulence type="turbulence" baseFrequency="0.04" numOctaves="4" seed="5" result="noise"/>
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="6" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <!-- Extra shaky for strikethrough -->
+    <filter id="wobbly-strike" x="-8%" y="-8%" width="116%" height="116%">
+      <feTurbulence type="turbulence" baseFrequency="0.05" numOctaves="3" seed="11" result="noise"/>
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="8" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <!-- Scratchy marks filter -->
+    <filter id="wobbly-scratch" x="-8%" y="-8%" width="116%" height="116%">
+      <feTurbulence type="turbulence" baseFrequency="0.07" numOctaves="2" seed="19" result="noise"/>
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="5" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+  </defs>
+
+  <!-- PRAY FOR — line 1, thin wobbly pencil letters with wild rotations and bad spacing -->
+  <g filter="url(#wobbly)">
+    <!-- P - leaning right, too close to R -->
+    <text x="152" y="158" font-family="'Courier New', monospace" font-size="74" font-weight="400" fill="#f5f0e8" stroke="#f5f0e8" stroke-width="0.3" transform="rotate(6, 152, 158)" letter-spacing="1" opacity="0.92">P</text>
+    <!-- R - leaning left hard -->
+    <text x="206" y="162" font-family="'Courier New', monospace" font-size="70" font-weight="400" fill="#f5f0e8" stroke="#f5f0e8" stroke-width="0.4" transform="rotate(-7, 206, 162)">R</text>
+    <!-- A - slightly higher, tilted, gap after R -->
+    <text x="272" y="155" font-family="'Courier New', monospace" font-size="78" font-weight="400" fill="#f5f0e8" stroke="#f5f0e8" stroke-width="0.2" transform="rotate(4, 272, 155)">A</text>
+    <!-- Y - dropping down, overlapping with A -->
+    <text x="335" y="168" font-family="'Courier New', monospace" font-size="68" font-weight="400" fill="#f5f0e8" stroke="#f5f0e8" stroke-width="0.5" transform="rotate(-8, 335, 168)">Y</text>
+    <!-- big gap then F -->
+    <!-- F - way too far right, leaning -->
+    <text x="448" y="155" font-family="'Courier New', monospace" font-size="72" font-weight="400" fill="#f5f0e8" stroke="#f5f0e8" stroke-width="0.3" transform="rotate(7, 448, 155)">F</text>
+    <!-- O - partially drawn, dropping low -->
+    <text x="510" y="166" font-family="'Courier New', monospace" font-size="76" font-weight="400" fill="#f5f0e8" stroke="#f5f0e8" stroke-width="0.2" transform="rotate(-5, 510, 166)" opacity="0.85">O</text>
+    <!-- R - squeezed close to O, tiny -->
+    <text x="572" y="160" font-family="'Courier New', monospace" font-size="66" font-weight="400" fill="#f5f0e8" stroke="#f5f0e8" stroke-width="0.4" transform="rotate(3, 572, 160)">R</text>
+  </g>
+
+  <!-- Incomplete letter strokes — pen lifted mid-way -->
+  <g filter="url(#wobbly)">
+    <!-- Partial extra stroke on P (kid retraced) -->
+    <line x1="162" y1="108" x2="162" y2="138" stroke="#f5f0e8" stroke-width="1.2" stroke-linecap="round" opacity="0.2"/>
+    <!-- Abandoned start of a letter before P -->
+    <path d="M 132 148 L 136 130 L 140 150" stroke="#f5f0e8" stroke-width="1.0" fill="none" stroke-linecap="round" opacity="0.18"/>
+  </g>
+
+  <!-- Strikethrough lines — thin, diagonal, wobbly, aggressive kid crossing out -->
+  <g filter="url(#wobbly-strike)">
+    <!-- Strike 1 — thin, very diagonal -->
+    <line x1="140" y1="135" x2="610" y2="155" stroke="#f5f0e8" stroke-width="2.0" stroke-linecap="round" opacity="0.75"/>
+    <!-- Strike 2 — thinner, opposite angle -->
+    <line x1="145" y1="158" x2="605" y2="138" stroke="#f5f0e8" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/>
+    <!-- Strike 3 — short angry slash in middle -->
+    <line x1="220" y1="128" x2="520" y2="168" stroke="#f5f0e8" stroke-width="1.8" stroke-linecap="round" opacity="0.5"/>
+    <!-- Strike 4 — extra short aggressive mark -->
+    <line x1="280" y1="148" x2="450" y2="140" stroke="#f5f0e8" stroke-width="2.2" stroke-linecap="round" opacity="0.45"/>
+    <!-- Wobbly scribble-through path -->
+    <path d="M 160 145 Q 250 138 340 152 Q 430 162 520 140 Q 580 130 600 148" stroke="#f5f0e8" stroke-width="1.3" fill="none" stroke-linecap="round" opacity="0.4"/>
+  </g>
+
+  <!-- ME — line 2, bigger, shaky, pressed harder -->
+  <g filter="url(#wobbly)">
+    <!-- M - big, heavy, wobbly -->
+    <text x="260" y="320" font-family="'Courier New', monospace" font-size="150" font-weight="700" fill="#f5f0e8" stroke="#f5f0e8" stroke-width="0.8" transform="rotate(-3, 260, 320)">M</text>
+    <!-- E - even bigger, tilted other way, pressed hard -->
+    <text x="405" y="325" font-family="'Courier New', monospace" font-size="145" font-weight="700" fill="#f5f0e8" stroke="#f5f0e8" stroke-width="1.0" transform="rotate(5, 405, 325)">E</text>
+  </g>
+
+  <!-- Extra M/E emphasis — kid retraced parts -->
+  <g filter="url(#wobbly)">
+    <!-- Retrace on M left leg -->
+    <line x1="270" y1="200" x2="278" y2="316" stroke="#f5f0e8" stroke-width="1.5" stroke-linecap="round" opacity="0.15"/>
+    <!-- Retrace on E bottom -->
+    <line x1="415" y1="322" x2="480" y2="320" stroke="#f5f0e8" stroke-width="1.8" stroke-linecap="round" opacity="0.12"/>
+  </g>
+
+  <!-- Pen test dots and random marks — like a kid testing their pencil -->
+  <g filter="url(#wobbly-scratch)">
+    <!-- Pen test cluster top-left -->
+    <circle cx="118" cy="95" r="1.8" fill="#f5f0e8" opacity="0.35"/>
+    <circle cx="125" cy="92" r="1.2" fill="#f5f0e8" opacity="0.25"/>
+    <circle cx="121" cy="100" r="0.9" fill="#f5f0e8" opacity="0.3"/>
+    <line x1="115" y1="88" x2="130" y2="90" stroke="#f5f0e8" stroke-width="0.8" stroke-linecap="round" opacity="0.2"/>
+
+    <!-- Dot near Y -->
+    <circle cx="380" cy="105" r="1.4" fill="#f5f0e8" opacity="0.28"/>
+
+    <!-- Scribble loop near F — like pen testing -->
+    <path d="M 465 100 Q 470 92 475 100 Q 480 108 485 98 Q 488 92 492 100" stroke="#f5f0e8" stroke-width="0.9" fill="none" opacity="0.3"/>
+
+    <!-- Stray mark above O -->
+    <line x1="520" y1="98" x2="528" y2="105" stroke="#f5f0e8" stroke-width="0.7" stroke-linecap="round" opacity="0.22"/>
+
+    <!-- Random dots scattered -->
+    <circle cx="620" cy="120" r="1.6" fill="#f5f0e8" opacity="0.25"/>
+    <circle cx="145" cy="180" r="1.0" fill="#f5f0e8" opacity="0.2"/>
+    <circle cx="590" cy="180" r="2.0" fill="#f5f0e8" opacity="0.18"/>
+    <circle cx="350" cy="210" r="0.8" fill="#f5f0e8" opacity="0.22"/>
+
+    <!-- Small scribble circle — kid drew a tiny circle -->
+    <circle cx="650" cy="260" r="6" fill="none" stroke="#f5f0e8" stroke-width="0.8" opacity="0.15"/>
+    <circle cx="652" cy="258" r="5" fill="none" stroke="#f5f0e8" stroke-width="0.6" opacity="0.12"/>
+
+    <!-- Scratch marks near bottom -->
+    <line x1="170" y1="280" x2="182" y2="270" stroke="#f5f0e8" stroke-width="0.7" stroke-linecap="round" opacity="0.18"/>
+    <line x1="175" y1="275" x2="185" y2="282" stroke="#f5f0e8" stroke-width="0.6" stroke-linecap="round" opacity="0.15"/>
+
+    <!-- X mark — like a mistake -->
+    <line x1="640" y1="295" x2="654" y2="310" stroke="#f5f0e8" stroke-width="1.0" stroke-linecap="round" opacity="0.2"/>
+    <line x1="654" y1="295" x2="640" y2="310" stroke="#f5f0e8" stroke-width="0.9" stroke-linecap="round" opacity="0.2"/>
+
+    <!-- Wobbly underline under ME — like the kid underlined it -->
+    <path d="M 250 345 Q 300 355 350 342 Q 400 335 450 348 Q 500 358 530 340" stroke="#f5f0e8" stroke-width="1.2" fill="none" opacity="0.25"/>
+
+    <!-- Caret / arrow pointing at ME -->
+    <path d="M 355 205 L 368 185 L 381 205" stroke="#f5f0e8" stroke-width="1.0" fill="none" opacity="0.28"/>
+
+    <!-- Smudge-like marks -->
+    <ellipse cx="200" cy="345" rx="8" ry="3" fill="#f5f0e8" opacity="0.06"/>
+    <ellipse cx="580" cy="350" rx="6" ry="2" fill="#f5f0e8" opacity="0.05"/>
+
+    <!-- Pen drag mark — like dragging across paper -->
+    <line x1="100" y1="200" x2="115" y2="198" stroke="#f5f0e8" stroke-width="0.5" stroke-linecap="round" opacity="0.15"/>
+  </g>
+</svg>

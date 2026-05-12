@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PRAY FOR ME — Collection SS25</title>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;700&display=swap" rel="stylesheet" />
+    <style>
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            background: #ffffff;
+            color: #000000;
+            font-family: 'Barlow Condensed', sans-serif;
+            font-weight: 700;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            padding-bottom: 60px;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .logo-bar {
+            position: relative;
+            display: flex;
+            align-items: center;
+            padding: 20px;
+            background: #fff;
+        }
+
+        .logo {
+            width: 120px;
+            height: auto;
+            display: block;
+            filter: brightness(0);
+        }
+
+        .nav-strip {
+            border-top: 1px solid #000;
+            border-bottom: 1px solid #000;
+            padding: 10px 0;
+            background: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1.5em;
+        }
+
+        .nav-strip a {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            font-weight: 700;
+        }
+
+        .nav-strip a:hover {
+            text-decoration: line-through;
+        }
+
+        .nav-strip .sep {
+            font-size: 11px;
+            font-weight: 700;
+            opacity: 0.6;
+        }
+
+        .grid {
+            background: #000;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1px;
+        }
+
+        .card {
+            background: #fff;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-media {
+            position: relative;
+            aspect-ratio: 3 / 4;
+            overflow: hidden;
+            background: #f4f4f4;
+        }
+
+        .card-media img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: opacity 0.4s ease;
+        }
+
+        .card-media .worn {
+            opacity: 0;
+        }
+
+        .card:hover .worn {
+            opacity: 1;
+        }
+
+        .card:hover .flat {
+            opacity: 0;
+        }
+
+        .card-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            padding: 8px;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            font-weight: 700;
+        }
+
+        footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            font-weight: 700;
+            background: #fff;
+            z-index: 10;
+        }
+
+        @media (max-width: 720px) {
+            .grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .nav-strip {
+                gap: 0.6em;
+            }
+            .nav-strip a {
+                font-size: 9px;
+                letter-spacing: 0.15em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="logo-bar">
+        <a href="index.html" aria-label="Pray For Me">
+            <img src="logo-pfm-v2.svg" alt="PRAY FOR ME" class="logo" />
+        </a>
+    </div>
+    <nav class="nav-strip">
+        <a href="collection.html">Collection</a>
+        <span class="sep">—</span>
+        <a href="#">Lookbook</a>
+        <span class="sep">—</span>
+        <a href="about.html">About</a>
+        <span class="sep">—</span>
+        <a href="#">Contact</a>
+    </nav>
+
+    <section class="grid">
+        <article class="card">
+            <div class="card-media">
+                <img class="flat" src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=600" alt="PFM-01 Tee" loading="lazy" />
+                <img class="worn" src="https://images.unsplash.com/photo-1503341504253-dff4815485f1?w=600" alt="" loading="lazy" />
+            </div>
+            <div class="card-meta">
+                <span>PFM-01 Tee SS25</span>
+                <span>€180</span>
+            </div>
+        </article>
+
+        <article class="card">
+            <div class="card-media">
+                <img class="flat" src="https://images.unsplash.com/photo-1556821840-3a63f15732ce?w=600" alt="PFM-02 Hoodie" loading="lazy" />
+                <img class="worn" src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=600" alt="" loading="lazy" />
+            </div>
+            <div class="card-meta">
+                <span>PFM-02 Hoodie SS25</span>
+                <span>€320</span>
+            </div>
+        </article>
+
+        <article class="card">
+            <div class="card-media">
+                <img class="flat" src="https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?w=600" alt="PFM-03 Jacket" loading="lazy" />
+                <img class="worn" src="https://images.unsplash.com/photo-1594938298603-c8148c4b4571?w=600" alt="" loading="lazy" />
+            </div>
+            <div class="card-meta">
+                <span>PFM-03 Jacket SS25</span>
+                <span>€650</span>
+            </div>
+        </article>
+
+        <article class="card">
+            <div class="card-media">
+                <img class="flat" src="https://images.unsplash.com/photo-1542272604-787c3835535d?w=600" alt="PFM-04 Cargo" loading="lazy" />
+                <img class="worn" src="https://images.unsplash.com/photo-1523398002811-999ca8dec234?w=600" alt="" loading="lazy" />
+            </div>
+            <div class="card-meta">
+                <span>PFM-04 Cargo SS25</span>
+                <span>€420</span>
+            </div>
+        </article>
+
+        <article class="card">
+            <div class="card-media">
+                <img class="flat" src="https://images.unsplash.com/photo-1618354691373-d851c5c3a990?w=600" alt="PFM-05 Longsleeve" loading="lazy" />
+                <img class="worn" src="https://images.unsplash.com/photo-1529139574466-a303027c1d8b?w=600" alt="" loading="lazy" />
+            </div>
+            <div class="card-meta">
+                <span>PFM-05 Longsleeve SS25</span>
+                <span>€220</span>
+            </div>
+        </article>
+
+        <article class="card">
+            <div class="card-media">
+                <img class="flat" src="https://images.unsplash.com/photo-1601924638867-3a6de6b7a500?w=600" alt="PFM-06 Scarf" loading="lazy" />
+                <img class="worn" src="https://images.unsplash.com/photo-1509631179647-0177331693ae?w=600" alt="" loading="lazy" />
+            </div>
+            <div class="card-meta">
+                <span>PFM-06 Scarf SS25</span>
+                <span>€95</span>
+            </div>
+        </article>
+    </section>
+
+    <footer>
+        <span>© Pray For Me SS25</span>
+        <span>Paris</span>
+    </footer>
+</body>
+</html>
