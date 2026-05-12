@@ -1,46 +1,47 @@
-# CLAUDE.md — The Curator
+# CLAUDE.md — PRAY FOR ME (PFM)
 
-## Project
-Cinematic luxury real estate landing page.
-Single HTML file (code.html).
+## Projet
+Site e-commerce mode avant-garde.
+Repo GitHub: colinpietri20/the-curator
+Stack: vanilla HTML/CSS/JS — UN seul fichier par page, aucun framework.
 
-## Skills disponibles
-- UI/UX Pro Max: ~/.claude/skills/ui-ux-pro-max-skill/
-- Search command: python3 ~/.claude/skills/ui-ux-pro-max-skill/src/ui-ux-pro-max/scripts/search.py "<query>" --domain <domain>
-- Domains: style, color, typography, landing, ux
+## Pages
+- index.html — Landing page
+- collection.html — Grille produits
+- about.html — Histoire de la marque
+- logo-pfm-v2.svg — Logo SVG dans le dossier
 
-## Avant chaque modification majeure
-1. Requête le skill UI/UX pour les recommandations :
-   python3 ~/.claude/skills/ui-ux-pro-max-skill/src/ui-ux-pro-max/scripts/search.py "luxury real estate cinematic" --domain style
-   python3 ~/.claude/skills/ui-ux-pro-max-skill/src/ui-ux-pro-max/scripts/search.py "luxury dark editorial" --domain typography
-2. Appliquer les recommandations avant de coder
+## Direction artistique
+Références: Balenciaga 2017 + sicko.jp + Maison Margiela + enfant riche déprimé
+Mood: brutal, minimaliste, anti-design, subversif, poétique
 
-## Stack
-- Vanilla HTML/CSS/JS (single file)
-- GSAP + ScrollTrigger via CDN
-- Lenis smooth scroll via CDN
-- Cormorant Garamond (Google Fonts)
+## Design System
+- Background: #ffffff
+- Text: #000000
+- Accent: #ff0000 (glitch uniquement)
+- Font: Barlow Condensed 700, uppercase, letter-spacing tight
+- ZERO gradient, ZERO shadow, ZERO border-radius
 
-## Design Direction
-- Référence: wearebrand.io, igloo.inc
-- Ambiance: cinématique, sombre, luxueux
-- Couleurs: #0a0a0a bg, #f5f0e8 text
-- Typographie: serif éditorial oversized
-- PAS de couleurs génériques, PAS d'effets cheap
+## index.html
+- Full viewport, pas de scroll
+- Logo top-left fixed (120px)
+- Canvas 2D glitch VHS en fond
+- Bouton "SHOP" centré → collection.html
+- Footer fixed: © PRAY FOR ME SS25 / PARIS
 
-## Expérience scroll
-- Position fixed sur toutes les scènes
-- Scroll = narration cinématique
-- scrub: 2 sur tous les ScrollTrigger
-- Chaque transition = une seule animation fluide
-- L'utilisateur doit sentir qu'il VIT une expérience
+## collection.html
+- Header: logo + bandeau menu horizontal
+- Grille CSS 3 colonnes, gap 1px, bordures noires
+- 6 produits: flat → hover worn (crossfade 0.4s)
 
-## 21st.dev
-- Pour les composants UI premium, s'inspirer de 21st.dev
-- Cursor effects, magnetic buttons, smooth reveals
+## about.html
+- Story fictive marque
+- Titre wobbly SVG feTurbulence
+- Barlow Condensed, centré, max-width 600px
 
 ## Règles absolues
-- UN seul fichier HTML
-- Aucun framework externe
-- Toujours consulter le skill UI/UX avant de modifier
-- Jamais d'animations cheap ou génériques
+- JAMAIS dark background sur collection et about
+- JAMAIS border-radius
+- JAMAIS couleurs autres que #000, #fff, #ff0000
+- UN seul fichier HTML par page
+- Toujours lire ce CLAUDE.md avant toute modification
