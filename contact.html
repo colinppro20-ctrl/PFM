@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>PRAY FOR ME — Collection SUMMER 26</title>
+    <title>PRAY FOR ME — Contact</title>
     <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;700&display=swap" rel="stylesheet" />
     <style>
         *, *::before, *::after {
@@ -72,59 +72,44 @@
             opacity: 0.6;
         }
 
-        .grid {
-            background: #000;
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 1px;
-            max-width: 900px;
+        .contact {
+            max-width: 600px;
             margin: 0 auto;
+            padding: 14vh 20px;
+            text-align: center;
         }
 
-        .card {
-            background: #fff;
-            position: relative;
+        .contact h1 {
+            font-size: 8vw;
+            text-transform: uppercase;
+            letter-spacing: -0.02em;
+            line-height: 1;
+            font-weight: 700;
+        }
+
+        .rule {
+            border: 0;
+            border-top: 1px solid #000;
+            margin: 6vh auto;
+        }
+
+        .contact-lines {
             display: flex;
             flex-direction: column;
+            gap: 1.4em;
         }
 
-        .card-media {
-            position: relative;
-            aspect-ratio: 1 / 1;
-            overflow: hidden;
-            background: #f4f4f4;
-        }
-
-        .card-media img {
-            position: absolute;
-            inset: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-            transition: opacity 0.4s ease;
-        }
-
-        .card-media .worn {
-            opacity: 0;
-        }
-
-        .card:hover .worn {
-            opacity: 1;
-        }
-
-        .card:hover .flat {
-            opacity: 0;
-        }
-
-        .card-meta {
-            display: flex;
-            justify-content: space-between;
-            align-items: baseline;
-            padding: 8px;
-            font-size: 11px;
+        .contact-lines span {
+            font-size: 12px;
             text-transform: uppercase;
             letter-spacing: 0.15em;
+            font-weight: 700;
+        }
+
+        .creed {
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
             font-weight: 700;
         }
 
@@ -146,15 +131,15 @@
         }
 
         @media (max-width: 720px) {
-            .grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
             .nav-strip {
                 gap: 0.6em;
             }
             .nav-strip a {
                 font-size: 9px;
                 letter-spacing: 0.15em;
+            }
+            .contact h1 {
+                font-size: 16vw;
             }
         }
     </style>
@@ -173,30 +158,17 @@
         <a href="contact.html">Contact</a>
     </nav>
 
-    <section class="grid">
-        <a class="card" href="product.html">
-            <div class="card-media" style="background-color: #ffffff;">
-                <img class="flat" src="images/tongs-verso.jpeg" alt="DRAMA TONGS — sole" loading="lazy" />
-                <img class="worn" src="images/tongs-recto.jpeg" alt="" loading="lazy" />
-            </div>
-            <div class="card-meta">
-                <span>DRAMA TONGS</span>
-                <span>€95</span>
-            </div>
-        </a>
-
-        <a class="card" href="tote.html">
-            <div class="card-media">
-                <img class="flat" src="images/totebag.jpeg" alt="PFM Mugshot Tote" loading="lazy" />
-                <img class="worn" src="images/totebag.jpeg" alt="" loading="lazy" />
-            </div>
-            <div class="card-meta">
-                <span>PFM Mugshot Tote</span>
-                <span>€120</span>
-            </div>
-        </a>
-
-    </section>
+    <main class="contact">
+        <h1>Contact</h1>
+        <hr class="rule" />
+        <div class="contact-lines">
+            <span>GENERAL — contact@prayforme.com</span>
+            <span>ORDERS — orders@prayforme.com</span>
+            <span>INSTAGRAM — @prayforme</span>
+        </div>
+        <hr class="rule" />
+        <p class="creed">WE DON'T DO CUSTOMER SERVICE. WE DO PRAYERS.</p>
+    </main>
 
     <footer>
         <span>© Pray For Me SUMMER 26</span>
