@@ -16,8 +16,8 @@
             width: 100%;
             height: 100%;
             overflow: hidden;
-            background: #000000;
-            color: #ffffff;
+            background: #ffffff;
+            color: #000000;
             font-family: 'Barlow Condensed', sans-serif;
             -webkit-font-smoothing: antialiased;
         }
@@ -36,16 +36,6 @@
             pointer-events: none;
         }
 
-        .flash {
-            position: fixed;
-            inset: 0;
-            background: #ffffff;
-            opacity: 0;
-            z-index: 1;
-            pointer-events: none;
-            mix-blend-mode: difference;
-        }
-
         header {
             position: fixed;
             top: 0;
@@ -58,7 +48,9 @@
             width: 120px;
             height: auto;
             display: block;
-            filter: brightness(0) invert(1);
+            object-fit: contain;
+            background: transparent;
+            mix-blend-mode: multiply;
         }
 
         .center {
@@ -76,7 +68,7 @@
             font-size: 4vw;
             line-height: 1;
             letter-spacing: 0.02em;
-            color: #ffffff;
+            color: #000000;
             background: none;
             border: none;
             display: inline-block;
@@ -93,36 +85,18 @@
         }
 
         @keyframes color-flicker {
-            0% { color: #ffffff; }
+            0% { color: #000000; }
             50% { color: #ff0000; }
-            100% { color: #ffffff; }
-        }
-
-        footer {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            padding: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
-            font-size: 10px;
-            text-transform: uppercase;
-            letter-spacing: 0.15em;
-            font-weight: 700;
-            color: #ffffff;
-            z-index: 10;
+            100% { color: #000000; }
         }
     </style>
 </head>
 <body>
     <canvas id="glitch-canvas"></canvas>
-    <div class="flash" id="flash"></div>
 
     <header>
         <a href="/" aria-label="Pray For Me">
-            <img src="logo-pfm-v2.svg" alt="PRAY FOR ME" class="logo" />
+            <img src="logos/logotypeeverlast.jpeg" alt="PRAY FOR ME" class="logo" />
         </a>
     </header>
 
@@ -130,18 +104,11 @@
         <a href="collection.html" class="shop">Shop</a>
     </div>
 
-    <footer>
-        <span>© Pray For Me SS25</span>
-        <span>Paris</span>
-    </footer>
-
     <script>
         const canvas = document.getElementById('glitch-canvas');
         const ctx = canvas.getContext('2d');
-        const flash = document.getElementById('flash');
 
         let width, height, dpr;
-
         function resize() {
             dpr = Math.min(window.devicePixelRatio || 1, 2);
             width = window.innerWidth;
@@ -173,6 +140,7 @@
 
         let frameCount = 0;
         let lastFlashTime = 0;
+        let flashUntil = 0;
         let scanLines = [];
 
         function spawnScanLine() {
@@ -182,7 +150,7 @@
                 thickness: rand(1, 4),
                 life: 0,
                 maxLife: randInt(8, 30),
-                color: Math.random() < 0.85 ? '#ffffff' : '#ff0000'
+                color: Math.random() < 0.85 ? '#000000' : '#ff0000'
             });
         }
 
@@ -191,15 +159,12 @@
             ctx.fillStyle = color;
             for (let i = 0; i < blocks.length; i++) {
                 const b = blocks[i];
-                // Flicker: only draw if phase says so
                 const flicker = Math.sin((frameCount + b.seed) * 0.4 + b.phase * 6.28);
                 if (flicker < -0.2) continue;
 
-                // Random shift
                 const jitterX = (Math.random() - 0.5) * 30 * (Math.random() < 0.3 ? 1 : 0);
                 const jitterY = (Math.random() - 0.5) * 8 * (Math.random() < 0.3 ? 1 : 0);
 
-                // Reposition randomly every few frames
                 if (frameCount % randInt(4, 14) === 0 && Math.random() < 0.3) {
                     b.x = rand(0, 1);
                     b.y = rand(0, 1);
@@ -219,24 +184,21 @@
         function frame() {
             frameCount++;
 
-            // Background
-            ctx.fillStyle = '#000000';
+            // Background — white
+            ctx.fillStyle = '#ffffff';
             ctx.fillRect(0, 0, width, height);
 
-            // RGB split layers
+            // RGB split — dark channels via multiply
             const splitAmount = 6 + Math.sin(frameCount * 0.07) * 4;
 
-            // Red channel
-            ctx.globalCompositeOperation = 'screen';
-            drawBlocks(splitAmount, 0, '#ff0000', 0.85);
-            // Green channel
-            drawBlocks(0, 0, '#00ff00', 0.6);
-            // Blue channel
-            drawBlocks(-splitAmount, 0, '#0000ff', 0.85);
+            ctx.globalCompositeOperation = 'multiply';
+            drawBlocks(splitAmount, 0, '#1a1a1a', 0.85);
+            drawBlocks(0, 0, '#333333', 0.6);
+            drawBlocks(-splitAmount, 0, '#1a1a1a', 0.85);
             ctx.globalCompositeOperation = 'source-over';
 
-            // White overlay (the "real" shapes, mostly white/black to feel monochrome)
-            drawBlocks(0, 0, '#ffffff', 0.35);
+            // Solid black overlay
+            drawBlocks(0, 0, '#000000', 0.35);
 
             // Scan lines
             if (Math.random() < 0.18) spawnScanLine();
@@ -244,7 +206,7 @@
                 const s = scanLines[i];
                 s.y += s.speed;
                 s.life++;
-                ctx.globalAlpha = 0.6;
+                ctx.globalAlpha = 0.8;
                 ctx.fillStyle = s.color;
                 ctx.fillRect(0, s.y, width, s.thickness);
                 ctx.globalAlpha = 1;
@@ -253,10 +215,10 @@
                 }
             }
 
-            // Static noise dots
+            // Static noise dots — black on white
             const noiseCount = 60;
             ctx.globalAlpha = 0.12;
-            ctx.fillStyle = '#ffffff';
+            ctx.fillStyle = '#000000';
             for (let i = 0; i < noiseCount; i++) {
                 ctx.fillRect(Math.random() * width, Math.random() * height, 2, 2);
             }
@@ -274,12 +236,15 @@
                 ctx.globalAlpha = 1;
             }
 
-            // Full-screen white flash (very brief, rare)
+            // Full-screen black flash (very brief, rare)
             const now = performance.now();
             if (now - lastFlashTime > 1800 && Math.random() < 0.012) {
                 lastFlashTime = now;
-                flash.style.opacity = '1';
-                setTimeout(() => { flash.style.opacity = '0'; }, 50);
+                flashUntil = now + 50;
+            }
+            if (now < flashUntil) {
+                ctx.fillStyle = '#000000';
+                ctx.fillRect(0, 0, width, height);
             }
 
             requestAnimationFrame(frame);

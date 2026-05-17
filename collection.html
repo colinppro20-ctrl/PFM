@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>PRAY FOR ME — Collection SS25</title>
+    <title>PRAY FOR ME — Collection SUMMER 26</title>
     <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;700&display=swap" rel="stylesheet" />
     <style>
         *, *::before, *::after {
@@ -41,7 +41,7 @@
             width: 120px;
             height: auto;
             display: block;
-            filter: brightness(0);
+            mix-blend-mode: multiply;
         }
 
         .nav-strip {
@@ -75,8 +75,10 @@
         .grid {
             background: #000;
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(2, 1fr);
             gap: 1px;
+            max-width: 900px;
+            margin: 0 auto;
         }
 
         .card {
@@ -88,7 +90,7 @@
 
         .card-media {
             position: relative;
-            aspect-ratio: 3 / 4;
+            aspect-ratio: 1 / 1;
             overflow: hidden;
             background: #f4f4f4;
         }
@@ -160,7 +162,7 @@
 <body>
     <div class="logo-bar">
         <a href="index.html" aria-label="Pray For Me">
-            <img src="logo-pfm-v2.svg" alt="PRAY FOR ME" class="logo" />
+            <img src="logos/logotypeeverlast.jpeg" alt="PRAY FOR ME" class="logo" />
         </a>
     </div>
     <nav class="nav-strip">
@@ -168,81 +170,36 @@
         <span class="sep">—</span>
         <a href="#">Lookbook</a>
         <span class="sep">—</span>
-        <a href="about.html">About</a>
-        <span class="sep">—</span>
         <a href="#">Contact</a>
     </nav>
 
     <section class="grid">
-        <article class="card">
-            <div class="card-media">
-                <img class="flat" src="images/tongs-verso.jpeg" alt="PFM Tongs SS25 — sole" loading="lazy" />
+        <a class="card" href="product.html">
+            <div class="card-media" style="background-color: #ffffff;">
+                <img class="flat" src="images/tongs-verso.jpeg" alt="DRAMA TONGS — sole" loading="lazy" />
                 <img class="worn" src="images/tongs-recto.jpeg" alt="" loading="lazy" />
             </div>
             <div class="card-meta">
-                <span>PFM Tongs SS25</span>
+                <span>DRAMA TONGS</span>
                 <span>€95</span>
             </div>
-        </article>
+        </a>
 
-        <article class="card">
+        <a class="card" href="tote.html">
             <div class="card-media">
-                <img class="flat" src="images/totebag.jpeg" alt="PFM Tote SS25" loading="lazy" />
+                <img class="flat" src="images/totebag.jpeg" alt="PFM Mugshot Tote" loading="lazy" />
                 <img class="worn" src="images/totebag.jpeg" alt="" loading="lazy" />
             </div>
             <div class="card-meta">
-                <span>PFM Tote SS25</span>
+                <span>PFM Mugshot Tote</span>
                 <span>€120</span>
             </div>
-        </article>
+        </a>
 
-        <article class="card">
-            <div class="card-media">
-                <img class="flat" src="https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?w=600" alt="PFM-03 Jacket" loading="lazy" />
-                <img class="worn" src="https://images.unsplash.com/photo-1594938298603-c8148c4b4571?w=600" alt="" loading="lazy" />
-            </div>
-            <div class="card-meta">
-                <span>PFM-03 Jacket SS25</span>
-                <span>€650</span>
-            </div>
-        </article>
-
-        <article class="card">
-            <div class="card-media">
-                <img class="flat" src="https://images.unsplash.com/photo-1542272604-787c3835535d?w=600" alt="PFM-04 Cargo" loading="lazy" />
-                <img class="worn" src="https://images.unsplash.com/photo-1523398002811-999ca8dec234?w=600" alt="" loading="lazy" />
-            </div>
-            <div class="card-meta">
-                <span>PFM-04 Cargo SS25</span>
-                <span>€420</span>
-            </div>
-        </article>
-
-        <article class="card">
-            <div class="card-media">
-                <img class="flat" src="https://images.unsplash.com/photo-1618354691373-d851c5c3a990?w=600" alt="PFM-05 Longsleeve" loading="lazy" />
-                <img class="worn" src="https://images.unsplash.com/photo-1529139574466-a303027c1d8b?w=600" alt="" loading="lazy" />
-            </div>
-            <div class="card-meta">
-                <span>PFM-05 Longsleeve SS25</span>
-                <span>€220</span>
-            </div>
-        </article>
-
-        <article class="card">
-            <div class="card-media">
-                <img class="flat" src="https://images.unsplash.com/photo-1601924638867-3a6de6b7a500?w=600" alt="PFM-06 Scarf" loading="lazy" />
-                <img class="worn" src="https://images.unsplash.com/photo-1509631179647-0177331693ae?w=600" alt="" loading="lazy" />
-            </div>
-            <div class="card-meta">
-                <span>PFM-06 Scarf SS25</span>
-                <span>€95</span>
-            </div>
-        </article>
     </section>
 
     <footer>
-        <span>© Pray For Me SS25</span>
+        <span>© Pray For Me SUMMER 26</span>
         <span>Paris</span>
     </footer>
 </body>
