@@ -27,30 +27,57 @@
             text-decoration: none;
         }
 
-        #glitch-canvas {
+        .bg-video {
             position: fixed;
             inset: 0;
             width: 100%;
             height: 100%;
+            object-fit: cover;
+            transform-origin: center center;
+            transform: scale(1.3);
+            clip-path: inset(0 8% 6% 0);
             z-index: 0;
             pointer-events: none;
         }
 
-        header {
+        .top-bar {
             position: fixed;
             top: 0;
             left: 0;
+            right: 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
             padding: 20px;
             z-index: 10;
         }
 
-        .logo {
-            width: 120px;
+        .top-bar .icon-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: none;
+            border: none;
+            padding: 0;
+            cursor: pointer;
+            color: #000000;
+            transition: opacity 0.2s ease;
+        }
+
+        .top-bar .icon-btn:hover {
+            opacity: 0.6;
+        }
+
+        .top-bar .icon-btn svg {
+            display: block;
+            width: 26px;
+            height: 26px;
+        }
+
+        .top-logo {
+            width: 110px;
             height: auto;
             display: block;
-            object-fit: contain;
-            background: transparent;
-            mix-blend-mode: multiply;
         }
 
         .center {
@@ -65,191 +92,52 @@
             font-family: 'Barlow Condensed', sans-serif;
             font-weight: 700;
             text-transform: uppercase;
-            font-size: 4vw;
+            font-size: 2rem;
             line-height: 1;
-            letter-spacing: 0.02em;
+            letter-spacing: 0.08em;
             color: #000000;
-            background: none;
-            border: none;
+            background: #ffffff;
+            border: 1px solid #000000;
             display: inline-block;
+            padding: 0.6em 2.4em;
             cursor: pointer;
             position: relative;
-            transition: text-decoration-thickness 0.1s ease;
+            transition: opacity 0.2s ease;
         }
 
         .shop:hover {
-            text-decoration: line-through;
-            text-decoration-thickness: 3px;
-            text-decoration-skip-ink: none;
-            animation: color-flicker 0.18s steps(2) infinite;
-        }
-
-        @keyframes color-flicker {
-            0% { color: #000000; }
-            50% { color: #ff0000; }
-            100% { color: #000000; }
+            opacity: 0.6;
         }
     </style>
 </head>
 <body>
-    <canvas id="glitch-canvas"></canvas>
+    <video class="bg-video" autoplay loop muted playsinline>
+        <source src="video/video.mp4" type="video/mp4" />
+    </video>
 
-    <header>
+    <header class="top-bar">
+        <button class="icon-btn" type="button" aria-label="Menu">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square">
+                <line x1="3" y1="6" x2="21" y2="6" />
+                <line x1="3" y1="12" x2="21" y2="12" />
+                <line x1="3" y1="18" x2="21" y2="18" />
+            </svg>
+        </button>
+
         <a href="/" aria-label="Pray For Me">
-            <img src="logos/logotypeeverlast.jpeg" alt="PRAY FOR ME" class="logo" />
+            <img src="logos/logotypeeverlast-removebg-preview.png" alt="PRAY FOR ME" class="top-logo" />
         </a>
+
+        <button class="icon-btn" type="button" aria-label="Cart">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter">
+                <path d="M6 8h12l1 12H5L6 8z" />
+                <path d="M9 8V6a3 3 0 0 1 6 0v2" />
+            </svg>
+        </button>
     </header>
 
     <div class="center">
         <a href="collection.html" class="shop">Shop</a>
     </div>
-
-    <script>
-        const canvas = document.getElementById('glitch-canvas');
-        const ctx = canvas.getContext('2d');
-
-        let width, height, dpr;
-        function resize() {
-            dpr = Math.min(window.devicePixelRatio || 1, 2);
-            width = window.innerWidth;
-            height = window.innerHeight;
-            canvas.width = width * dpr;
-            canvas.height = height * dpr;
-            canvas.style.width = width + 'px';
-            canvas.style.height = height + 'px';
-            ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-        }
-        resize();
-        window.addEventListener('resize', resize);
-
-        function rand(a, b) { return a + Math.random() * (b - a); }
-        function randInt(a, b) { return Math.floor(rand(a, b)); }
-
-        const NUM_BLOCKS = 18;
-        const blocks = [];
-        for (let i = 0; i < NUM_BLOCKS; i++) {
-            blocks.push({
-                x: rand(0, 1),
-                y: rand(0, 1),
-                w: rand(0.04, 0.32),
-                h: rand(0.01, 0.12),
-                seed: Math.random() * 1000,
-                phase: Math.random()
-            });
-        }
-
-        let frameCount = 0;
-        let lastFlashTime = 0;
-        let flashUntil = 0;
-        let scanLines = [];
-
-        function spawnScanLine() {
-            scanLines.push({
-                y: rand(-50, height),
-                speed: rand(8, 28) * (Math.random() < 0.5 ? 1 : -1),
-                thickness: rand(1, 4),
-                life: 0,
-                maxLife: randInt(8, 30),
-                color: Math.random() < 0.85 ? '#000000' : '#ff0000'
-            });
-        }
-
-        function drawBlocks(offsetX, offsetY, color, alpha) {
-            ctx.globalAlpha = alpha;
-            ctx.fillStyle = color;
-            for (let i = 0; i < blocks.length; i++) {
-                const b = blocks[i];
-                const flicker = Math.sin((frameCount + b.seed) * 0.4 + b.phase * 6.28);
-                if (flicker < -0.2) continue;
-
-                const jitterX = (Math.random() - 0.5) * 30 * (Math.random() < 0.3 ? 1 : 0);
-                const jitterY = (Math.random() - 0.5) * 8 * (Math.random() < 0.3 ? 1 : 0);
-
-                if (frameCount % randInt(4, 14) === 0 && Math.random() < 0.3) {
-                    b.x = rand(0, 1);
-                    b.y = rand(0, 1);
-                    b.w = rand(0.04, 0.32);
-                    b.h = rand(0.01, 0.12);
-                }
-
-                const x = b.x * width + offsetX + jitterX;
-                const y = b.y * height + offsetY + jitterY;
-                const w = b.w * width;
-                const h = b.h * height;
-                ctx.fillRect(x, y, w, h);
-            }
-            ctx.globalAlpha = 1;
-        }
-
-        function frame() {
-            frameCount++;
-
-            // Background — white
-            ctx.fillStyle = '#ffffff';
-            ctx.fillRect(0, 0, width, height);
-
-            // RGB split — dark channels via multiply
-            const splitAmount = 6 + Math.sin(frameCount * 0.07) * 4;
-
-            ctx.globalCompositeOperation = 'multiply';
-            drawBlocks(splitAmount, 0, '#1a1a1a', 0.85);
-            drawBlocks(0, 0, '#333333', 0.6);
-            drawBlocks(-splitAmount, 0, '#1a1a1a', 0.85);
-            ctx.globalCompositeOperation = 'source-over';
-
-            // Solid black overlay
-            drawBlocks(0, 0, '#000000', 0.35);
-
-            // Scan lines
-            if (Math.random() < 0.18) spawnScanLine();
-            for (let i = scanLines.length - 1; i >= 0; i--) {
-                const s = scanLines[i];
-                s.y += s.speed;
-                s.life++;
-                ctx.globalAlpha = 0.8;
-                ctx.fillStyle = s.color;
-                ctx.fillRect(0, s.y, width, s.thickness);
-                ctx.globalAlpha = 1;
-                if (s.life > s.maxLife || s.y < -10 || s.y > height + 10) {
-                    scanLines.splice(i, 1);
-                }
-            }
-
-            // Static noise dots — black on white
-            const noiseCount = 60;
-            ctx.globalAlpha = 0.12;
-            ctx.fillStyle = '#000000';
-            for (let i = 0; i < noiseCount; i++) {
-                ctx.fillRect(Math.random() * width, Math.random() * height, 2, 2);
-            }
-            ctx.globalAlpha = 1;
-
-            // Occasional thin red glitch slice
-            if (Math.random() < 0.04) {
-                ctx.fillStyle = '#ff0000';
-                ctx.globalAlpha = 0.7;
-                const sliceY = rand(0, height);
-                const sliceH = rand(2, 8);
-                const sliceX = rand(0, width * 0.5);
-                const sliceW = rand(width * 0.2, width * 0.6);
-                ctx.fillRect(sliceX, sliceY, sliceW, sliceH);
-                ctx.globalAlpha = 1;
-            }
-
-            // Full-screen black flash (very brief, rare)
-            const now = performance.now();
-            if (now - lastFlashTime > 1800 && Math.random() < 0.012) {
-                lastFlashTime = now;
-                flashUntil = now + 50;
-            }
-            if (now < flashUntil) {
-                ctx.fillStyle = '#000000';
-                ctx.fillRect(0, 0, width, height);
-            }
-
-            requestAnimationFrame(frame);
-        }
-        frame();
-    </script>
 </body>
 </html>

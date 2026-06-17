@@ -33,6 +33,7 @@
             position: relative;
             display: flex;
             align-items: center;
+            justify-content: center;
             padding: 20px;
             background: #fff;
         }
@@ -56,14 +57,15 @@
         }
 
         .nav-strip a {
-            font-size: 11px;
+            font-size: 13px;
             text-transform: uppercase;
             letter-spacing: 0.2em;
             font-weight: 700;
+            transition: opacity 0.2s ease;
         }
 
         .nav-strip a:hover {
-            text-decoration: line-through;
+            opacity: 0.5;
         }
 
         .nav-strip .sep {
@@ -74,11 +76,12 @@
 
         .grid {
             background: #000;
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
+            border: 1px solid #000;
+            border-top: none;
+            display: inline-grid;
+            grid-template-columns: repeat(2, 440px);
             gap: 1px;
-            max-width: 900px;
-            margin: 0 auto;
+            margin: 0;
         }
 
         .card {
@@ -147,7 +150,9 @@
 
         @media (max-width: 720px) {
             .grid {
+                display: grid;
                 grid-template-columns: repeat(2, 1fr);
+                margin: 0;
             }
             .nav-strip {
                 gap: 0.6em;

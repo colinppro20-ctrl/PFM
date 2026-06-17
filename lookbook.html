@@ -33,6 +33,7 @@
             position: relative;
             display: flex;
             align-items: center;
+            justify-content: center;
             padding: 20px;
             background: #fff;
         }
@@ -56,14 +57,15 @@
         }
 
         .nav-strip a {
-            font-size: 11px;
+            font-size: 13px;
             text-transform: uppercase;
             letter-spacing: 0.2em;
             font-weight: 700;
+            transition: opacity 0.2s ease;
         }
 
         .nav-strip a:hover {
-            text-decoration: line-through;
+            opacity: 0.5;
         }
 
         .nav-strip .sep {
