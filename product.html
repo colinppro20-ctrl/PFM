@@ -4,7 +4,6 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>PRAY FOR ME — DRAMA TONGS</title>
-    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;700&display=swap" rel="stylesheet" />
     <style>
         *, *::before, *::after {
             margin: 0;
@@ -15,7 +14,7 @@
         html, body {
             background: #ffffff;
             color: #000000;
-            font-family: 'Barlow Condensed', sans-serif;
+            font-family: Arial, Helvetica, sans-serif;
             font-weight: 700;
             -webkit-font-smoothing: antialiased;
         }
@@ -33,6 +32,7 @@
             position: relative;
             display: flex;
             align-items: center;
+            justify-content: center;
             padding: 20px;
             background: #fff;
         }
@@ -156,7 +156,7 @@
             border-radius: 0;
             background: #fff;
             color: #000;
-            font-family: 'Barlow Condensed', sans-serif;
+            font-family: Arial, Helvetica, sans-serif;
             font-weight: 700;
             font-size: 11px;
             text-transform: uppercase;
@@ -192,7 +192,7 @@
             border: 1px solid #000;
             border-radius: 0;
             padding: 16px;
-            font-family: 'Barlow Condensed', sans-serif;
+            font-family: Arial, Helvetica, sans-serif;
             font-weight: 700;
             text-transform: uppercase;
             font-size: 13px;
@@ -220,6 +220,19 @@
             letter-spacing: 0.05em;
             line-height: 1.8;
             font-weight: 400;
+        }
+
+        .detail-list {
+            list-style: none;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            line-height: 1.8;
+            font-weight: 400;
+        }
+
+        .detail-list li::before {
+            content: "— ";
         }
 
         footer {
@@ -270,11 +283,7 @@
         </a>
     </div>
     <nav class="nav-strip">
-        <a href="collection.html">Collection</a>
-        <span class="sep">—</span>
-        <a href="lookbook.html">Lookbook</a>
-        <span class="sep">—</span>
-        <a href="contact.html">Contact</a>
+        <a href="collection.html">Shop</a>
     </nav>
 
     <section class="product">
@@ -285,12 +294,13 @@
 
         <div class="info">
             <h1 class="name">DRAMA TONGS</h1>
-            <div class="price">€95</div>
+            <div class="price">95 EUR</div>
 
             <hr class="rule" />
 
             <div class="label">Size</div>
             <div class="sizes">
+                <button type="button" class="size">35</button>
                 <button type="button" class="size">36</button>
                 <button type="button" class="size">37</button>
                 <button type="button" class="size">38</button>
@@ -310,11 +320,27 @@
             <div class="final">All Sales Final</div>
 
             <p class="desc">
-                Rubber thong sandal. Moulded footbed with embossed PFM
-                logotype. Magazine-print strap. Made in Italy. Unisex.
-                One size — runs true. Final sale, no returns, no prayers
-                answered.
+                Rubber thong sandals featuring molded PVC straps embellished
+                with silver-tone metal studs. Finished with our Drama
+                all-over artwork.
             </p>
+
+            <div class="label">Details</div>
+            <ul class="detail-list">
+                <li>Rubber sole</li>
+                <li>Molded PVC upper</li>
+                <li>Silver-tone metal stud embellishments</li>
+                <li>Drama all-over artwork</li>
+                <li>Slip-on style</li>
+                <li>Open toe</li>
+                <li>Made for everyday wear</li>
+            </ul>
+
+            <div class="label">Fit</div>
+            <ul class="detail-list">
+                <li>If you are between sizes, we recommend sizing down.</li>
+                <li>For wide feet, choose your usual size.</li>
+            </ul>
         </div>
     </section>
 

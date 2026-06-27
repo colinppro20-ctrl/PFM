@@ -1,24 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>PRAY FOR ME — SS25</title>
-    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700&display=swap" rel="stylesheet" />
     <style>
-        *, *::before, *::after {
+        *,
+        *::before,
+        *::after {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        html, body {
+        html,
+        body {
             width: 100%;
             height: 100%;
             overflow: hidden;
             background: #ffffff;
             color: #000000;
-            font-family: 'Barlow Condensed', sans-serif;
+            font-family: Arial, Helvetica, sans-serif;
             -webkit-font-smoothing: antialiased;
         }
 
@@ -47,7 +50,7 @@
             right: 0;
             display: flex;
             align-items: center;
-            justify-content: space-between;
+            justify-content: center;
             padding: 20px;
             z-index: 10;
         }
@@ -89,7 +92,7 @@
         }
 
         .shop {
-            font-family: 'Barlow Condensed', sans-serif;
+            font-family: Arial, Helvetica, sans-serif;
             font-weight: 700;
             text-transform: uppercase;
             font-size: 2rem;
@@ -108,36 +111,274 @@
         .shop:hover {
             opacity: 0.6;
         }
+
+        .menu-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 20;
+            background: none;
+            border: none;
+            padding: 0;
+            cursor: pointer;
+            color: #000000;
+            transition: opacity 0.2s ease;
+        }
+
+        .menu-btn:hover {
+            opacity: 0.6;
+        }
+
+        .menu-btn svg {
+            display: block;
+            width: 26px;
+            height: 26px;
+        }
+
+        .overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 100;
+            background: #000000;
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-12px);
+            transition: opacity 0.35s ease, transform 0.35s ease, visibility 0s linear 0.35s;
+        }
+
+        .overlay.open {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+            transition: opacity 0.35s ease, transform 0.35s ease;
+        }
+
+        .overlay-close {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: none;
+            border: none;
+            padding: 0;
+            cursor: pointer;
+            color: #ffffff;
+            transition: opacity 0.2s ease;
+        }
+
+        .overlay-close:hover {
+            opacity: 0.6;
+        }
+
+        .overlay-close svg {
+            display: block;
+            width: 26px;
+            height: 26px;
+        }
+
+        .overlay-inner {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 28px;
+            padding: 20px;
+        }
+
+        .overlay-logo {
+            width: 160px;
+            height: auto;
+            display: block;
+            filter: invert(1);
+        }
+
+        .overlay-clock {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 11px;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: #ffffff;
+        }
+
+        .overlay-nav {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.3em;
+        }
+
+        .overlay-nav a {
+            color: #ffffff;
+            text-transform: uppercase;
+            font-weight: 700;
+            font-size: 2rem;
+            line-height: 1.5;
+            letter-spacing: 0.08em;
+            transition: opacity 0.2s ease;
+        }
+
+        .overlay-nav a:hover {
+            opacity: 0.6;
+        }
+
+        .overlay-social {
+            display: flex;
+            align-items: center;
+            gap: 22px;
+        }
+
+        .overlay-ig,
+        .overlay-mail {
+            color: #ffffff;
+            display: inline-flex;
+            transition: opacity 0.2s ease;
+        }
+
+        .overlay-ig:hover,
+        .overlay-mail:hover {
+            opacity: 0.6;
+        }
+
+        .overlay-ig svg,
+        .overlay-mail svg {
+            display: block;
+            width: 26px;
+            height: 26px;
+        }
+
+        .overlay-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            padding: 20px;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            font-weight: 700;
+            color: #ffffff;
+        }
+
+        .overlay-bottom a {
+            color: #ffffff;
+            transition: opacity 0.2s ease;
+        }
+
+        .overlay-bottom a:hover {
+            opacity: 0.6;
+        }
     </style>
 </head>
+
 <body>
+    <!-- Background video temporarily disabled — re-enable by uncommenting.
     <video class="bg-video" autoplay loop muted playsinline>
-        <source src="video/video.mp4" type="video/mp4" />
+        <source src="video/video2.mp4" type="video/mp4" />
     </video>
+    -->
+
+
+    <button class="menu-btn" id="menuBtn" type="button" aria-label="Open menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square">
+            <line x1="3" y1="6" x2="21" y2="6" />
+            <line x1="3" y1="12" x2="21" y2="12" />
+            <line x1="3" y1="18" x2="21" y2="18" />
+        </svg>
+    </button>
 
     <header class="top-bar">
-        <button class="icon-btn" type="button" aria-label="Menu">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square">
-                <line x1="3" y1="6" x2="21" y2="6" />
-                <line x1="3" y1="12" x2="21" y2="12" />
-                <line x1="3" y1="18" x2="21" y2="18" />
-            </svg>
-        </button>
-
         <a href="/" aria-label="Pray For Me">
             <img src="logos/logotypeeverlast-removebg-preview.png" alt="PRAY FOR ME" class="top-logo" />
         </a>
-
-        <button class="icon-btn" type="button" aria-label="Cart">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter">
-                <path d="M6 8h12l1 12H5L6 8z" />
-                <path d="M9 8V6a3 3 0 0 1 6 0v2" />
-            </svg>
-        </button>
     </header>
 
     <div class="center">
         <a href="collection.html" class="shop">Shop</a>
     </div>
+
+    <div class="overlay" id="overlay" aria-hidden="true">
+        <button class="overlay-close" id="overlayClose" type="button" aria-label="Close menu">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square">
+                <line x1="5" y1="5" x2="19" y2="19" />
+                <line x1="19" y1="5" x2="5" y2="19" />
+            </svg>
+        </button>
+
+        <div class="overlay-inner">
+            <img class="overlay-logo" src="logos/logotypeeverlast-removebg-preview.png" alt="PRAY FOR ME" />
+            <div class="overlay-clock" id="overlayClock"></div>
+            <nav class="overlay-nav">
+                <a href="collection.html">shop</a>
+            </nav>
+            <div class="overlay-social">
+                <a class="overlay-ig" href="https://instagram.com/prayforme2002" target="_blank" rel="noopener" aria-label="Instagram">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter">
+                        <rect x="3" y="3" width="18" height="18" />
+                        <circle cx="12" cy="12" r="4" />
+                        <circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none" />
+                    </svg>
+                </a>
+                <a class="overlay-mail" href="mailto:prayforme.2K2@gmail.com" aria-label="Email">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter">
+                        <rect x="3" y="5" width="18" height="14" />
+                        <path d="M3 6l9 7 9-7" />
+                    </svg>
+                </a>
+            </div>
+        </div>
+
+        <div class="overlay-bottom">
+            <a href="#">Terms</a>
+            <span>© Pray For Me — All Rights Reserved</span>
+            <a href="#">Privacy</a>
+        </div>
+    </div>
+
+    <script>
+        const overlay = document.getElementById('overlay');
+        const menuBtn = document.getElementById('menuBtn');
+        const overlayClose = document.getElementById('overlayClose');
+        const overlayClock = document.getElementById('overlayClock');
+
+        function updateClock() {
+            const parts = new Intl.DateTimeFormat('en-GB', {
+                timeZone: 'Europe/Paris',
+                day: '2-digit', month: '2-digit', year: 'numeric',
+                hour: '2-digit', minute: '2-digit', hour12: true
+            }).formatToParts(new Date());
+            const p = {};
+            parts.forEach((x) => { p[x.type] = x.value; });
+            overlayClock.textContent =
+                p.day + '/' + p.month + '/' + p.year + ' ' +
+                p.hour + ':' + p.minute + ' ' +
+                (p.dayPeriod || '').toLowerCase() + ' PAR';
+        }
+
+        function openMenu() {
+            overlay.classList.add('open');
+            overlay.setAttribute('aria-hidden', 'false');
+            document.body.style.overflow = 'hidden';
+            updateClock();
+        }
+
+        function closeMenu() {
+            overlay.classList.remove('open');
+            overlay.setAttribute('aria-hidden', 'true');
+            document.body.style.overflow = '';
+        }
+
+        menuBtn.addEventListener('click', openMenu);
+        overlayClose.addEventListener('click', closeMenu);
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeMenu();
+        });
+
+        updateClock();
+        setInterval(updateClock, 60000);
+    </script>
 </body>
+
 </html>

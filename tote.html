@@ -1,21 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>PRAY FOR ME — PFM Mugshot Tote</title>
-    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;700&display=swap" rel="stylesheet" />
     <style>
-        *, *::before, *::after {
+        *,
+        *::before,
+        *::after {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        html, body {
+        html,
+        body {
             background: #ffffff;
             color: #000000;
-            font-family: 'Barlow Condensed', sans-serif;
+            font-family: Arial, Helvetica, sans-serif;
             font-weight: 700;
             -webkit-font-smoothing: antialiased;
         }
@@ -33,6 +36,7 @@
             position: relative;
             display: flex;
             align-items: center;
+            justify-content: center;
             padding: 20px;
             background: #fff;
         }
@@ -156,7 +160,7 @@
             border-radius: 0;
             background: #fff;
             color: #000;
-            font-family: 'Barlow Condensed', sans-serif;
+            font-family: Arial, Helvetica, sans-serif;
             font-weight: 700;
             font-size: 11px;
             text-transform: uppercase;
@@ -192,7 +196,7 @@
             border: 1px solid #000;
             border-radius: 0;
             padding: 16px;
-            font-family: 'Barlow Condensed', sans-serif;
+            font-family: Arial, Helvetica, sans-serif;
             font-weight: 700;
             text-transform: uppercase;
             font-size: 13px;
@@ -222,6 +226,19 @@
             font-weight: 400;
         }
 
+        .detail-list {
+            list-style: none;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            line-height: 1.8;
+            font-weight: 400;
+        }
+
+        .detail-list li::before {
+            content: "— ";
+        }
+
         footer {
             position: fixed;
             bottom: 0;
@@ -243,19 +260,24 @@
             .product {
                 grid-template-columns: 1fr;
             }
+
             .media {
                 border-right: none;
                 border-bottom: 1px solid #000;
             }
+
             .info {
                 padding: 32px 24px;
             }
+
             .name {
                 font-size: 28px;
             }
+
             .nav-strip {
                 gap: 0.6em;
             }
+
             .nav-strip a {
                 font-size: 9px;
                 letter-spacing: 0.15em;
@@ -263,6 +285,7 @@
         }
     </style>
 </head>
+
 <body>
     <div class="logo-bar">
         <a href="index.html" aria-label="Pray For Me">
@@ -270,22 +293,18 @@
         </a>
     </div>
     <nav class="nav-strip">
-        <a href="collection.html">Collection</a>
-        <span class="sep">—</span>
-        <a href="lookbook.html">Lookbook</a>
-        <span class="sep">—</span>
-        <a href="contact.html">Contact</a>
+        <a href="collection.html">Shop</a>
     </nav>
 
     <section class="product">
         <div class="media" id="media">
-            <img class="flat" src="images/totebag.jpeg" alt="PFM Mugshot Tote" />
-            <img class="worn" src="images/totebag.jpeg" alt="PFM Mugshot Tote" />
+            <img class="flat" src="images/BagwBG4.jpeg" alt="PFM Mugshot Tote" />
+            <img class="worn" src="images/BagwBG4.jpeg" alt="PFM Mugshot Tote" />
         </div>
 
         <div class="info">
             <h1 class="name">PFM Mugshot Tote</h1>
-            <div class="price">€120</div>
+            <div class="price">120 EUR</div>
 
             <hr class="rule" />
 
@@ -300,8 +319,24 @@
             <div class="final">All Sales Final</div>
 
             <p class="desc">
-                Mugshot tote bag. Woven exterior. Black handles. One size.
+                Laminated woven shopping bag featuring our Mugshot all-over
+                artwork. Finished with contrasting black woven handles for
+                comfortable hand or shoulder carry.
             </p>
+
+            <div class="label">Details</div>
+            <ul class="detail-list">
+                <li>Laminated woven construction</li>
+                <li>Mugshot all-over artwork</li>
+                <li>Black woven handles</li>
+                <li>Open-top design</li>
+                <li>Lightweight construction</li>
+                <li>Hand or shoulder carry</li>
+                <li>Made for everyday use</li>
+            </ul>
+
+            <div class="label">Size</div>
+            <p class="desc">One size.</p>
         </div>
     </section>
 
@@ -325,4 +360,5 @@
         });
     </script>
 </body>
+
 </html>
