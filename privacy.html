@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>PRAY FOR ME</title>
+    <title>PRAY FOR ME — PRIVACY</title>
     <link rel="icon" type="image/x-icon" href="logos/favicon.ico" />
     <link rel="icon" type="image/png" sizes="32x32" href="logos/favicon-32.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="logos/favicon-180.png" />
@@ -19,13 +19,15 @@
 
         html,
         body {
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            background: #ffffff url("images/fond-plage.jpeg") center center / cover no-repeat fixed;
+            background: #ffffff;
             color: #000000;
             font-family: Arial, Helvetica, sans-serif;
+            font-weight: 700;
             -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            padding-bottom: 60px;
         }
 
         a {
@@ -33,86 +35,93 @@
             text-decoration: none;
         }
 
-        .bg-video {
-            position: fixed;
-            inset: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transform-origin: center center;
-            transform: scale(1.3);
-            clip-path: inset(0 8% 6% 0);
-            z-index: 0;
-            pointer-events: none;
-        }
-
-        .top-bar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
+        .logo-bar {
+            position: relative;
             display: flex;
             align-items: center;
             justify-content: center;
             padding: 20px;
-            z-index: 10;
+            background: #fff;
         }
 
-        .top-bar .icon-btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: none;
-            border: none;
-            padding: 0;
-            cursor: pointer;
-            color: #000000;
-            transition: opacity 0.2s ease;
-        }
-
-        .top-bar .icon-btn:hover {
-            opacity: 0.6;
-        }
-
-        .top-bar .icon-btn svg {
-            display: block;
-            width: 26px;
-            height: 26px;
-        }
-
-        .top-logo {
-            width: 110px;
+        .logo {
+            width: 120px;
             height: auto;
             display: block;
+            mix-blend-mode: multiply;
         }
 
-        .center {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 5;
+        .nav-strip {
+            border-top: 1px solid #000;
+            border-bottom: 1px solid #000;
+            padding: 10px 0;
+            background: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1.5em;
         }
 
-        .shop {
-            font-family: Arial, Helvetica, sans-serif;
-            font-weight: 700;
+        .nav-strip a {
+            font-size: 13px;
             text-transform: uppercase;
-            font-size: 2rem;
-            line-height: 1;
-            letter-spacing: 0.08em;
-            color: #000000;
-            background: #ffffff;
-            border: 1px solid #000000;
-            display: inline-block;
-            padding: 0.6em 2.4em;
-            cursor: pointer;
-            position: relative;
+            letter-spacing: 0.2em;
+            font-weight: 700;
             transition: opacity 0.2s ease;
         }
 
-        .shop:hover {
-            opacity: 0.6;
+        .nav-strip a:hover {
+            opacity: 0.5;
+        }
+
+        .legal {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 60px 24px 40px;
+        }
+
+        .legal h1 {
+            font-size: 2.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
+            line-height: 1;
+            font-weight: 700;
+            margin-bottom: 44px;
+        }
+
+        .legal h2 {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            font-weight: 700;
+            margin-top: 40px;
+            margin-bottom: 16px;
+        }
+
+        .legal p {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            line-height: 1.8;
+            font-weight: 400;
+            margin-bottom: 16px;
+        }
+
+        footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            font-weight: 700;
+            background: #fff;
+            z-index: 10;
         }
 
         .menu-btn {
@@ -273,17 +282,25 @@
         .overlay-bottom a:hover {
             opacity: 0.6;
         }
+
+        @media (max-width: 720px) {
+            .nav-strip {
+                gap: 0.6em;
+            }
+
+            .nav-strip a {
+                font-size: 9px;
+                letter-spacing: 0.15em;
+            }
+
+            .legal h1 {
+                font-size: 2rem;
+            }
+        }
     </style>
 </head>
 
 <body>
-    <!-- Background video temporarily disabled — re-enable by uncommenting.
-    <video class="bg-video" autoplay loop muted playsinline>
-        <source src="video/video2.mp4" type="video/mp4" />
-    </video>
-    -->
-
-
     <button class="menu-btn" id="menuBtn" type="button" aria-label="Open menu">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="square">
             <line x1="2" y1="5" x2="22" y2="5" />
@@ -292,15 +309,38 @@
         </svg>
     </button>
 
-    <header class="top-bar">
-        <a href="/" aria-label="Pray For Me">
-            <img src="logos/logotypeeverlast-removebg-preview.png" alt="PRAY FOR ME" class="top-logo" />
+    <div class="logo-bar">
+        <a href="index.html" aria-label="Pray For Me">
+            <img src="logos/logotypeeverlast.jpeg" alt="PRAY FOR ME" class="logo" />
         </a>
-    </header>
-
-    <div class="center">
-        <a href="collection.html" class="shop">Shop</a>
     </div>
+    <nav class="nav-strip">
+        <a href="collection.html">Shop</a>
+    </nav>
+
+    <main class="legal">
+        <h1>Privacy</h1>
+
+        <h2>Customer Care</h2>
+        <p>Everything is made to order (MTO). Please allow 10-20 days for items to be shipped.</p>
+        <p>Deliveries are fulfilled by La Poste. Our shipping rates fluctuate depending on the weight of the order and the destination.</p>
+        <p>Once your package has been shipped from our warehouse, you will receive an email including a tracking number. Our couriers deliver from Monday to Friday during business hours.</p>
+
+        <h2>Deliveries, Refunds &amp; Exchanges</h2>
+        <p>We do not accept refunds or exchanges unless proofs of manufacturing problems are provided by the client.</p>
+        <p>Please also note that we will not offer a refund if the client has missed the delivery or if the package has been sent back to us for any reasons. The only case we would offer a refund is if the delivery company has lost the package and/if there is a manufacturing defect on the order.</p>
+        <p>If the packet has been sent the right way and the client miss the delivery, we would not offer a refund. If the order is sent back to us, we will send it back to the client straight away but will not be able to offer a refund.</p>
+        <p>Once the tracking number has been received by the customer, it is the customer's responsibility to track the delivery of the package and make sure it can be received.</p>
+
+        <h2>Payment</h2>
+        <p>Pray For Me accepts the following payment methods:</p>
+        <p>— Credit/Debit cards: Visa, Visa Electron, Mastercard</p>
+    </main>
+
+    <footer>
+        <span>© Pray For Me 2002</span>
+        <span>Paris</span>
+    </footer>
 
     <div class="overlay" id="overlay" aria-hidden="true">
         <button class="overlay-close" id="overlayClose" type="button" aria-label="Close menu">
@@ -317,15 +357,18 @@
                 <a href="collection.html">shop</a>
             </nav>
             <div class="overlay-social">
-                <a class="overlay-ig" href="https://instagram.com/prayforme2002" target="_blank" rel="noopener" aria-label="Instagram">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter">
+                <a class="overlay-ig" href="https://instagram.com/prayforme2002" target="_blank" rel="noopener"
+                    aria-label="Instagram">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"
+                        stroke-linejoin="miter">
                         <rect x="3" y="3" width="18" height="18" />
                         <circle cx="12" cy="12" r="4" />
                         <circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none" />
                     </svg>
                 </a>
                 <a class="overlay-mail" href="mailto:prayforme.2K2@gmail.com" aria-label="Email">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"
+                        stroke-linejoin="miter">
                         <rect x="3" y="5" width="18" height="14" />
                         <path d="M3 6l9 7 9-7" />
                     </svg>
