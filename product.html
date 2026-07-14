@@ -243,6 +243,48 @@
             content: "— ";
         }
 
+        .radio {
+            position: fixed;
+            bottom: 64px;
+            left: 20px;
+            z-index: 20;
+            display: flex;
+            align-items: center;
+            color: #000000;
+        }
+
+        .radio-toggle {
+            background: none;
+            border: none;
+            padding: 0;
+            cursor: pointer;
+            color: #000000;
+            display: inline-flex;
+            transition: opacity 0.2s ease;
+        }
+
+        .radio-toggle:hover {
+            opacity: 0.6;
+        }
+
+        .radio-toggle svg {
+            display: block;
+            width: 18px;
+            height: 18px;
+        }
+
+        .radio-toggle .icon-pause {
+            display: none;
+        }
+
+        .radio.playing .icon-play {
+            display: none;
+        }
+
+        .radio.playing .icon-pause {
+            display: block;
+        }
+
         footer {
             position: fixed;
             bottom: 0;
@@ -377,15 +419,44 @@
             });
         });
     </script>
-    <audio id="bgMusic" src="audios/track.mp3" autoplay loop preload="auto"></audio>
+    <div class="radio" id="radio">
+        <button class="radio-toggle" id="radioToggle" type="button" aria-label="Play PFM Radio" aria-pressed="false">
+            <svg class="icon-play" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="square" stroke-linejoin="miter">
+                <path d="M6 4 L20 12 L6 20 Z" />
+            </svg>
+            <svg class="icon-pause" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="square" stroke-linejoin="miter">
+                <rect x="7" y="5" width="3" height="14" />
+                <rect x="14" y="5" width="3" height="14" />
+            </svg>
+        </button>
+    </div>
+    <audio id="bgMusic" src="audios/track.mp3" loop preload="auto"></audio>
     <script>
         (function () {
+            const radio = document.getElementById('radio');
+            const radioToggle = document.getElementById('radioToggle');
             const bgMusic = document.getElementById('bgMusic');
             if (!bgMusic) return;
             bgMusic.volume = 0.4;
-            const startMusic = () => { bgMusic.play().catch(() => { }); };
-            startMusic();
-            document.addEventListener('click', startMusic, { once: true });
+
+            radioToggle.addEventListener('click', () => {
+                if (bgMusic.paused) {
+                    bgMusic.play().catch(() => { });
+                } else {
+                    bgMusic.pause();
+                }
+            });
+
+            bgMusic.addEventListener('play', () => {
+                radio.classList.add('playing');
+                radioToggle.setAttribute('aria-pressed', 'true');
+                radioToggle.setAttribute('aria-label', 'Pause PFM Radio');
+            });
+            bgMusic.addEventListener('pause', () => {
+                radio.classList.remove('playing');
+                radioToggle.setAttribute('aria-pressed', 'false');
+                radioToggle.setAttribute('aria-label', 'Play PFM Radio');
+            });
         })();
     </script>
 </body>
