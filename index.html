@@ -113,6 +113,59 @@
             opacity: 0.6;
         }
 
+        .radio {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            z-index: 20;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #ffffff;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
+        }
+
+        .radio-toggle {
+            background: none;
+            border: none;
+            padding: 0;
+            cursor: pointer;
+            color: #ffffff;
+            display: inline-flex;
+            transition: opacity 0.2s ease;
+            filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.35));
+        }
+
+        .radio-toggle:hover {
+            opacity: 0.6;
+        }
+
+        .radio-toggle svg {
+            display: block;
+            width: 18px;
+            height: 18px;
+        }
+
+        .radio-toggle .icon-pause {
+            display: none;
+        }
+
+        .radio.playing .icon-play {
+            display: none;
+        }
+
+        .radio.playing .icon-pause {
+            display: block;
+        }
+
+        .radio-label {
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            font-weight: 700;
+            user-select: none;
+        }
+
         .menu-btn {
             position: fixed;
             top: 20px;
@@ -336,6 +389,20 @@
         </div>
     </div>
 
+    <div class="radio" id="radio">
+        <button class="radio-toggle" id="radioToggle" type="button" aria-label="Play PFM Radio" aria-pressed="false">
+            <svg class="icon-play" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="square" stroke-linejoin="miter">
+                <path d="M6 4 L20 12 L6 20 Z" />
+            </svg>
+            <svg class="icon-pause" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="square" stroke-linejoin="miter">
+                <rect x="7" y="5" width="3" height="14" />
+                <rect x="14" y="5" width="3" height="14" />
+            </svg>
+        </button>
+        <span class="radio-label">PFM Radio</span>
+        <audio id="radioAudio" src="audios/track.mp3" autoplay loop preload="auto"></audio>
+    </div>
+
     <script>
         const overlay = document.getElementById('overlay');
         const menuBtn = document.getElementById('menuBtn');
@@ -377,6 +444,35 @@
 
         updateClock();
         setInterval(updateClock, 60000);
+
+        const radio = document.getElementById('radio');
+        const radioToggle = document.getElementById('radioToggle');
+        const radioAudio = document.getElementById('radioAudio');
+        radioAudio.volume = 0.4;
+
+        radioToggle.addEventListener('click', () => {
+            if (radioAudio.paused) {
+                radioAudio.play();
+            } else {
+                radioAudio.pause();
+            }
+        });
+
+        // Keep the icon/labels in sync with actual playback (covers autoplay too)
+        radioAudio.addEventListener('play', () => {
+            radio.classList.add('playing');
+            radioToggle.setAttribute('aria-pressed', 'true');
+            radioToggle.setAttribute('aria-label', 'Pause PFM Radio');
+        });
+        radioAudio.addEventListener('pause', () => {
+            radio.classList.remove('playing');
+            radioToggle.setAttribute('aria-pressed', 'false');
+            radioToggle.setAttribute('aria-label', 'Play PFM Radio');
+        });
+
+        // Attempt autoplay; if blocked, start on first interaction
+        radioAudio.play().catch(() => { });
+        document.addEventListener('click', () => { radioAudio.play().catch(() => { }); }, { once: true });
     </script>
 </body>
 

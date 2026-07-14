@@ -377,6 +377,17 @@
             });
         });
     </script>
+    <audio id="bgMusic" src="audios/track.mp3" autoplay loop preload="auto"></audio>
+    <script>
+        (function () {
+            const bgMusic = document.getElementById('bgMusic');
+            if (!bgMusic) return;
+            bgMusic.volume = 0.4;
+            const startMusic = () => { bgMusic.play().catch(() => { }); };
+            startMusic();
+            document.addEventListener('click', startMusic, { once: true });
+        })();
+    </script>
 </body>
 
 </html>
