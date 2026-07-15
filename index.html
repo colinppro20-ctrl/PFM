@@ -296,6 +296,7 @@
         }
 
         .overlay-bottom {
+            position: relative;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -306,6 +307,14 @@
             letter-spacing: 0.15em;
             font-weight: 700;
             color: #ffffff;
+        }
+
+        .overlay-bottom span {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            white-space: nowrap;
         }
 
         .overlay-bottom a {
@@ -391,7 +400,7 @@
                 <rect x="14" y="5" width="3" height="14" />
             </svg>
         </button>
-        <audio id="radioAudio" src="audios/track.mp3" autoplay loop preload="auto"></audio>
+        <audio id="radioAudio" src="audios/track.mp3" loop preload="auto"></audio>
     </div>
 
     <script>
@@ -440,16 +449,19 @@
         const radioToggle = document.getElementById('radioToggle');
         const radioAudio = document.getElementById('radioAudio');
         radioAudio.volume = 0.4;
+        const MUSIC_STOPPED_KEY = 'pfmMusicStopped';
 
         radioToggle.addEventListener('click', () => {
             if (radioAudio.paused) {
-                radioAudio.play();
+                sessionStorage.removeItem(MUSIC_STOPPED_KEY);
+                radioAudio.play().catch(() => { });
             } else {
+                sessionStorage.setItem(MUSIC_STOPPED_KEY, '1');
                 radioAudio.pause();
             }
         });
 
-        // Keep the icon/labels in sync with actual playback (covers autoplay too)
+        // Keep the icon/labels in sync with actual playback
         radioAudio.addEventListener('play', () => {
             radio.classList.add('playing');
             radioToggle.setAttribute('aria-pressed', 'true');
@@ -461,9 +473,12 @@
             radioToggle.setAttribute('aria-label', 'Play PFM Radio');
         });
 
-        // Attempt autoplay; if blocked, start on first interaction
-        radioAudio.play().catch(() => { });
-        document.addEventListener('click', () => { radioAudio.play().catch(() => { }); }, { once: true });
+        // Auto-start on first interaction unless the user chose to stop the music
+        if (sessionStorage.getItem(MUSIC_STOPPED_KEY) !== '1') {
+            const autoStartMusic = () => { radioAudio.play().catch(() => { }); };
+            document.addEventListener('click', autoStartMusic, { once: true });
+            document.addEventListener('touchstart', autoStartMusic, { once: true });
+        }
     </script>
 </body>
 

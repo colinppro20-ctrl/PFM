@@ -304,6 +304,7 @@
         }
 
         .overlay-bottom {
+            position: relative;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -314,6 +315,14 @@
             letter-spacing: 0.15em;
             font-weight: 700;
             color: #ffffff;
+        }
+
+        .overlay-bottom span {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            white-space: nowrap;
         }
 
         .overlay-bottom a {
@@ -490,11 +499,14 @@
             const bgMusic = document.getElementById('bgMusic');
             if (!bgMusic) return;
             bgMusic.volume = 0.4;
+            const MUSIC_STOPPED_KEY = 'pfmMusicStopped';
 
             radioToggle.addEventListener('click', () => {
                 if (bgMusic.paused) {
+                    sessionStorage.removeItem(MUSIC_STOPPED_KEY);
                     bgMusic.play().catch(() => { });
                 } else {
+                    sessionStorage.setItem(MUSIC_STOPPED_KEY, '1');
                     bgMusic.pause();
                 }
             });
@@ -509,6 +521,13 @@
                 radioToggle.setAttribute('aria-pressed', 'false');
                 radioToggle.setAttribute('aria-label', 'Play PFM Radio');
             });
+
+            // Auto-start on first interaction unless the user chose to stop the music
+            if (sessionStorage.getItem(MUSIC_STOPPED_KEY) !== '1') {
+                const autoStartMusic = () => { bgMusic.play().catch(() => { }); };
+                document.addEventListener('click', autoStartMusic, { once: true });
+                document.addEventListener('touchstart', autoStartMusic, { once: true });
+            }
         })();
     </script>
 </body>
