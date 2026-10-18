@@ -31,6 +31,9 @@ Toujours tester localement (panier + checkout) avant de commit/push.
 - Mutations: cartCreate, cartLinesAdd, cartLinesUpdate, cartLinesRemove ; query cart(id)
 - ID du panier persistant en `localStorage['pfmCartId']` (partagé entre pages ; supprimé si expiré)
 - Checkout: redirection vers `cart.checkoutUrl` (checkout hébergé par Shopify)
+- Boutique Shopify (thème Horizon) redirigée vers prayforme2002.com via un script en tête de
+  `layout/theme.liquid` (admin Shopify) → le logo du checkout ramène sur le site.
+  ⚠️ Ne pas cliquer "Mettre à jour" le thème Horizon sans recoller cette redirection.
 - Panier = tiroir latéral (`.cart-drawer`) + bouton "Cart (n)" dans le header
 - Devise affichée: EUR
 
