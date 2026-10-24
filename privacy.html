@@ -3,6 +3,15 @@
 
 <head>
     <meta charset="utf-8" />
+    <!-- SOLD OUT : tout le site bascule sur soldout.html le 24/10/2026 à 20:30 (Paris) -->
+    <script>
+        (function () {
+            var SOLDOUT_AT = Date.parse('2026-10-24T20:30:00+02:00');
+            function go() { location.replace('soldout.html'); }
+            var d = SOLDOUT_AT - Date.now();
+            if (d <= 0) go(); else setTimeout(go, d);
+        })();
+    </script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>PRAY FOR ME — SHIPPING POLICY</title>
     <link rel="icon" type="image/x-icon" href="logos/favicon.ico" />

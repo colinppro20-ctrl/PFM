@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PRAY FOR ME</title>
+    <link rel="icon" type="image/x-icon" href="logos/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="logos/favicon-32.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="logos/favicon-180.png" />
+    <style>
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            background: #ffffff;
+            color: #000000;
+            font-family: Arial, Helvetica, sans-serif;
+            font-weight: 700;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Bandeau du header conservé, vide */
+        .head {
+            height: 104px;
+        }
+
+        .nav-strip {
+            border-top: 1px solid #000;
+            border-bottom: 1px solid #000;
+            height: 37px;
+        }
+
+        main {
+            min-height: calc(100vh - 141px - 60px);
+            min-height: calc(100svh - 141px - 60px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 40px 20px 80px;
+        }
+
+        .logo {
+            width: 220px;
+            height: auto;
+            display: block;
+            mix-blend-mode: multiply;
+        }
+
+        .msg {
+            margin-top: 56px;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+        }
+
+        .notify {
+            margin-top: 16px;
+            display: flex;
+            width: 100%;
+            max-width: 320px;
+            border-bottom: 1px solid #000;
+        }
+
+        .notify input[type="email"] {
+            flex: 1;
+            min-width: 0;
+            border: 0;
+            border-radius: 0;
+            outline: 0;
+            background: transparent;
+            color: #000;
+            padding: 10px 0;
+            font: inherit;
+            font-size: 11px;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            -webkit-appearance: none;
+        }
+
+        .notify input[type="email"]::placeholder {
+            color: #000;
+            opacity: 0.4;
+        }
+
+        .notify button {
+            border: 0;
+            border-radius: 0;
+            background: none;
+            color: #000;
+            font: inherit;
+            font-size: 11px;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            cursor: pointer;
+            padding-left: 12px;
+            -webkit-appearance: none;
+        }
+
+        .notify button:disabled {
+            opacity: 0.4;
+            cursor: default;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .status {
+            margin-top: 16px;
+            min-height: 12px;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+        }
+
+        footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            font-weight: 700;
+            background: #fff;
+            z-index: 10;
+        }
+
+        @media (max-width: 720px) {
+            .logo {
+                width: 170px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="head"></div>
+    <div class="nav-strip"></div>
+
+    <main>
+        <img class="logo" src="logos/logotypeeverlast.jpeg" alt="PRAY FOR ME" />
+        <p class="msg">Be updated for next drop</p>
+
+        <!-- Netlify Forms : les inscriptions arrivent dans Netlify > Forms > next-drop -->
+        <form class="notify" id="notify" name="next-drop" method="POST" action="/soldout.html"
+            data-netlify="true" netlify-honeypot="bot-field">
+            <input type="hidden" name="form-name" value="next-drop" />
+            <p class="hidden"><label>Leave empty <input name="bot-field" /></label></p>
+            <input type="email" name="email" placeholder="Email" required autocomplete="email" aria-label="Email" />
+            <button type="submit">OK</button>
+        </form>
+        <p class="status" id="notifyStatus" aria-live="polite"></p>
+    </main>
+
+    <footer>
+        <span>© Pray For Me 2002</span>
+        <span>Paris</span>
+    </footer>
+
+    <script>
+        (function () {
+            var form = document.getElementById('notify');
+            var status = document.getElementById('notifyStatus');
+            var btn = form.querySelector('button');
+
+            form.addEventListener('submit', function (e) {
+                e.preventDefault();
+                btn.disabled = true;
+                status.textContent = '';
+                fetch('/', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: new URLSearchParams(new FormData(form)).toString()
+                }).then(function (res) {
+                    if (!res.ok) throw new Error(res.status);
+                    form.classList.add('hidden');
+                    status.textContent = 'Thank you. See you soon.';
+                }).catch(function () {
+                    btn.disabled = false;
+                    status.textContent = 'Error — try again';
+                });
+            });
+        })();
+    </script>
+</body>
+
+</html>

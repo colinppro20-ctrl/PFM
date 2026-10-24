@@ -17,6 +17,7 @@ Toujours tester localement (panier + checkout) avant de commit/push.
 - tote.html — Fiche MUGSHOT BAG (taille unique)
 - terms.html — Terms + crédit musique
 - privacy.html — Shipping policy (titre de page: "SHIPPING POLICY")
+- soldout.html — Page SOLD OUT (logo + inscription email next drop)
 - images/ — tongs-recto.jpeg, tongs-verso.jpeg, BagwBG4.jpeg, totebag.jpeg, fond-plage.jpeg
 - logos/ — logo-pfm-v2.svg, favicon.ico, logotypeeverlast.jpeg
 - video/vids.mp4 — vidéo de fond accueil (compressée ~1.5 Mo, garder léger)
@@ -48,6 +49,11 @@ Toujours tester localement (panier + checkout) avant de commit/push.
 - Les prix affichés sont en dur dans le HTML (collection + fiches) : les mettre à jour si le prix change dans Shopify.
 
 ## Fonctionnalités
+- **SOLD OUT** : depuis le 24/10/2026 20:30 (Paris), toutes les pages basculent sur `soldout.html`
+  (script `SOLDOUT_AT` en tête de index, collection, product, tote, terms, privacy).
+  soldout.html = header vide + logo + "Be updated for next drop" + email (Netlify Forms, formulaire `next-drop`,
+  notifications vers la boîte mail PFM à configurer dans Netlify > Forms).
+  Pour rouvrir le site au prochain drop : retirer/modifier le bloc `SOLDOUT_AT` dans les 6 pages.
 - **Timer de drop** (product.html, tote.html): bouton "Add to Cart" caché jusqu'au
   5 août 2026 19:00 Paris (`2026-08-05T19:00:00+02:00`). Bypass test: `?preview=angers`.
 - **Musique**: bouton son sur toutes les pages, état "coupé" en `sessionStorage['pfmMusicStopped']`.
