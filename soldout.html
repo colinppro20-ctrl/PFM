@@ -114,6 +114,21 @@
             display: none;
         }
 
+        .consent {
+            margin-top: 14px;
+            max-width: 320px;
+            font-size: 8px;
+            line-height: 1.7;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            opacity: 0.6;
+        }
+
+        .consent a {
+            color: inherit;
+            text-decoration: underline;
+        }
+
         .status {
             margin-top: 16px;
             min-height: 12px;
@@ -155,14 +170,17 @@
         <img class="logo" src="logos/logotypeeverlast.jpeg" alt="PRAY FOR ME" />
         <p class="msg">Be updated for next drop</p>
 
-        <!-- Netlify Forms : les inscriptions arrivent dans Netlify > Forms > next-drop -->
-        <form class="notify" id="notify" name="next-drop" method="POST" action="/soldout.html"
-            data-netlify="true" netlify-honeypot="bot-field">
-            <input type="hidden" name="form-name" value="next-drop" />
-            <p class="hidden"><label>Leave empty <input name="bot-field" /></label></p>
+        <!-- Inscription → netlify/functions/subscribe.mjs → client Shopify abonné au marketing e-mail -->
+        <form class="notify" id="notify" novalidate>
+            <p class="hidden"><label>Leave empty <input name="website" tabindex="-1" autocomplete="off" /></label></p>
             <input type="email" name="email" placeholder="Email" required autocomplete="email" aria-label="Email" />
             <button type="submit">OK</button>
         </form>
+        <!-- ⚠️ Texte identique à CONSENT_TEXT dans netlify/functions/subscribe.mjs -->
+        <p class="consent" id="consent">
+            Sign up to receive new releases and upcoming drops from Pray For Me by email. You can unsubscribe at any time.
+            <a href="https://pray-for-me-2.myshopify.com/policies/privacy-policy" target="_blank" rel="noopener">Privacy Policy</a>
+        </p>
         <p class="status" id="notifyStatus" aria-live="polite"></p>
     </main>
 
@@ -179,17 +197,27 @@
 
             form.addEventListener('submit', function (e) {
                 e.preventDefault();
+                var email = form.email.value.trim();
+                if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                    status.textContent = 'Invalid email';
+                    return;
+                }
                 btn.disabled = true;
                 status.textContent = '';
-                fetch('/', {
+                fetch('/api/subscribe', {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                    body: new URLSearchParams(new FormData(form)).toString()
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email: email, website: form.website.value })
                 }).then(function (res) {
-                    if (!res.ok) throw new Error(res.status);
-                    form.classList.add('hidden');
-                    status.textContent = 'Thank you. See you soon.';
-                }).catch(function () {
+                    return res.json().catch(function () { return {}; }).then(function (data) {
+                        // Succès affiché seulement si Shopify a bien enregistré l'inscription
+                        if (!res.ok || !data.ok) throw new Error(res.status);
+                        form.classList.add('hidden');
+                        document.getElementById('consent').classList.add('hidden');
+                        status.textContent = 'Thank you. You are subscribed.';
+                    });
+                }).catch(function (err) {
+                    console.error('[subscribe]', err);
                     btn.disabled = false;
                     status.textContent = 'Error — try again';
                 });
