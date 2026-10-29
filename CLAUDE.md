@@ -18,6 +18,7 @@ Toujours tester localement (panier + checkout) avant de commit/push.
 - terms.html — Terms + crédit musique
 - privacy.html — Shipping policy (titre de page: "SHIPPING POLICY")
 - soldout.html — Page SOLD OUT (logo + inscription email next drop)
+- privacy-policy.html — Privacy Policy (DA PFM, version courte : mentions RGPD obligatoires uniquement)
 - images/ — tongs-recto.jpeg, tongs-verso.jpeg, BagwBG4.jpeg, totebag.jpeg, fond-plage.jpeg
 - logos/ — logo-pfm-v2.svg, favicon.ico, logotypeeverlast.jpeg
 - video/vids.mp4 — vidéo de fond accueil (compressée ~1.5 Mo, garder léger)
@@ -61,7 +62,8 @@ Toujours tester localement (panier + checkout) avant de commit/push.
   (scopes read_customers, write_customers). Le texte de consentement existe en 2 endroits
   (soldout.html + `CONSENT_TEXT` dans la fonction) : les garder identiques.
   Le message de succès ne s'affiche que si Shopify a confirmé ; logs d'erreur dans Netlify > Logs > Functions.
-  Lien Privacy Policy → `pray-for-me-2.myshopify.com/policies/privacy-policy` (exclu de la redirection du thème).
+  Lien Privacy Policy → `privacy-policy.html` (page du site, pas la page Shopify au thème Horizon).
+  Si on ajoute un prestataire ou une nouvelle collecte (ex. analytics), mettre à jour privacy-policy.html.
 - **Timer de drop** (product.html, tote.html): bouton "Add to Cart" caché jusqu'au
   5 août 2026 19:00 Paris (`2026-08-05T19:00:00+02:00`). Bypass test: `?preview=angers`.
 - **Musique**: bouton son sur toutes les pages, état "coupé" en `sessionStorage['pfmMusicStopped']`.
